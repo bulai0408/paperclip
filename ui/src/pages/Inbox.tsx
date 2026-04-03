@@ -1,4 +1,5 @@
 import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link, useLocation, useNavigate } from "@/lib/router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { INBOX_MINE_ISSUE_STATUS_FILTER } from "@paperclipai/shared";
@@ -141,14 +142,14 @@ function readIssueIdFromRun(run: HeartbeatRun): string | null {
 
 type NonIssueUnreadState = "visible" | "fading" | "hidden" | null;
 const trailingIssueColumns: InboxIssueColumn[] = ["assignee", "project", "workspace", "labels", "updated"];
-const inboxIssueColumnLabels: Record<InboxIssueColumn, string> = {
-  status: "Status",
-  id: "ID",
-  assignee: "Assignee",
-  project: "Project",
-  workspace: "Workspace",
-  labels: "Tags",
-  updated: "Last updated",
+const inboxIssueColumnI18nKeys: Record<InboxIssueColumn, string> = {
+  status: "inbox.status",
+  id: "inbox.id",
+  assignee: "inbox.assignee",
+  project: "inbox.project",
+  workspace: "inbox.workspace",
+  labels: "inbox.tags",
+  updated: "inbox.lastUpdated",
 };
 const inboxIssueColumnDescriptions: Record<InboxIssueColumn, string> = {
   status: "Issue state chip on the left edge.",
@@ -786,6 +787,7 @@ function JoinRequestInboxRow({
 }
 
 export function Inbox() {
+  const { t } = useTranslation();
   const { selectedCompanyId } = useCompany();
   const { setBreadcrumbs } = useBreadcrumbs();
   const navigate = useNavigate();
@@ -847,8 +849,8 @@ export function Inbox() {
   });
 
   useEffect(() => {
-    setBreadcrumbs([{ label: "Inbox" }]);
-  }, [setBreadcrumbs]);
+    setBreadcrumbs([{ label: t("inbox.title") }]);
+  }, [setBreadcrumbs, t]);
 
   useEffect(() => {
     saveLastInboxTab(tab);
@@ -1629,7 +1631,7 @@ export function Inbox() {
                 >
                   <span className="flex flex-col gap-0.5">
                     <span className="text-sm font-medium text-foreground">
-                      {inboxIssueColumnLabels[column]}
+                      {t(inboxIssueColumnI18nKeys[column])}
                     </span>
                     <span className="text-xs leading-relaxed text-muted-foreground">
                       {inboxIssueColumnDescriptions[column]}

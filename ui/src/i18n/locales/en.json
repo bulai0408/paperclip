@@ -1,0 +1,414 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "close": "Close",
+    "back": "Back",
+    "confirm": "Confirm",
+    "search": "Search",
+    "noResults": "No results found.",
+    "actions": "Actions",
+    "pages": "Pages",
+    "all": "All",
+    "none": "None",
+    "optional": "optional",
+    "beta": "Beta",
+    "documentation": "Documentation",
+    "version": "Version",
+    "status": "Status",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "description": "Description",
+    "selectCompany": "Select company",
+    "live": "Live",
+    "on": "On",
+    "off": "Off",
+    "never": "never"
+  },
+  "nav": {
+    "newIssue": "New Issue",
+    "dashboard": "Dashboard",
+    "inbox": "Inbox",
+    "issues": "Issues",
+    "routines": "Routines",
+    "goals": "Goals",
+    "projects": "Projects",
+    "agents": "Agents",
+    "org": "Org",
+    "skills": "Skills",
+    "costs": "Costs",
+    "activity": "Activity",
+    "settings": "Settings",
+    "work": "Work",
+    "company": "Company",
+    "home": "Home",
+    "create": "Create",
+    "openSidebar": "Open sidebar",
+    "closeSidebar": "Close sidebar",
+    "skipToMainContent": "Skip to Main Content",
+    "instanceSettings": "Instance settings"
+  },
+  "mobileNav": {
+    "home": "Home",
+    "issues": "Issues",
+    "create": "Create",
+    "agents": "Agents",
+    "inbox": "Inbox"
+  },
+  "instanceSidebar": {
+    "title": "Instance Settings",
+    "general": "General",
+    "heartbeats": "Heartbeats",
+    "experimental": "Experimental",
+    "plugins": "Plugins"
+  },
+  "commandPalette": {
+    "placeholder": "Search issues, agents, projects...",
+    "noResults": "No results found.",
+    "actions": "Actions",
+    "pages": "Pages",
+    "issues": "Issues",
+    "agents": "Agents",
+    "projects": "Projects",
+    "createNewIssue": "Create new issue",
+    "createNewAgent": "Create new agent",
+    "createNewProject": "Create new project"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "agentsEnabled": "Agents Enabled",
+    "tasksInProgress": "Tasks In Progress",
+    "monthSpend": "Month Spend",
+    "pendingApprovals": "Pending Approvals",
+    "running": "running",
+    "paused": "paused",
+    "errors": "errors",
+    "open": "open",
+    "blocked": "blocked",
+    "awaitingBoardReview": "Awaiting board review",
+    "budgetOverridesAwaiting": "{{count}} budget overrides awaiting board review",
+    "unlimitedBudget": "Unlimited budget",
+    "budgetPercent": "{{percent}}% of {{budget}} budget",
+    "activeBudgetIncident": "{{count}} active budget incident(s)",
+    "agentsPaused": "{{count}} agents paused",
+    "projectsPaused": "{{count}} projects paused",
+    "pendingBudgetApprovals": "{{count}} pending budget approvals",
+    "openBudgets": "Open budgets",
+    "noAgents": "You have no agents.",
+    "createOneHere": "Create one here",
+    "recentActivity": "Recent Activity",
+    "recentTasks": "Recent Tasks",
+    "noTasksYet": "No tasks yet.",
+    "runActivity": "Run Activity",
+    "last14Days": "Last 14 days",
+    "issuesByPriority": "Issues by Priority",
+    "issuesByStatus": "Issues by Status",
+    "successRate": "Success Rate",
+    "welcomeMessage": "Welcome to Paperclip. Set up your first company and agent to get started.",
+    "selectCompanyMessage": "Create or select a company to view the dashboard.",
+    "getStarted": "Get Started"
+  },
+  "agents": {
+    "title": "Agents",
+    "all": "All",
+    "active": "Active",
+    "paused": "Paused",
+    "error": "Error",
+    "filters": "Filters",
+    "showTerminated": "Show terminated",
+    "newAgent": "New Agent",
+    "noMatch": "No agents match the selected filter.",
+    "noOrgHierarchy": "No organizational hierarchy defined.",
+    "agentCount": "{{count}} agents",
+    "liveCount": "{{count}} live",
+    "selectCompanyMessage": "Select a company to view agents.",
+    "createFirstAgent": "Create your first agent to get started.",
+    "noRecentRuns": "No recent agent runs.",
+    "waitingForTranscript": "Waiting for transcript parsing...",
+    "waitingForOutput": "Waiting for output...",
+    "noTranscript": "No transcript captured."
+  },
+  "issues": {
+    "title": "Issues",
+    "selectCompanyMessage": "Select a company to view issues."
+  },
+  "projects": {
+    "title": "Projects",
+    "addProject": "Add Project",
+    "noProjects": "No projects yet.",
+    "selectCompanyMessage": "Select a company to view projects."
+  },
+  "goals": {
+    "title": "Goals",
+    "newGoal": "New Goal",
+    "noGoals": "No goals yet.",
+    "selectCompanyMessage": "Select a company to view goals."
+  },
+  "approvals": {
+    "title": "Approvals",
+    "pending": "Pending",
+    "all": "All",
+    "noPending": "No pending approvals.",
+    "noApprovals": "No approvals yet.",
+    "failedToApprove": "Failed to approve",
+    "failedToReject": "Failed to reject",
+    "types": {
+      "hire_agent": "Hire Agent",
+      "ceo_strategy": "CEO Strategy",
+      "budget_override": "Budget Override"
+    }
+  },
+  "costs": {
+    "title": "Costs",
+    "debits": "Debits",
+    "credits": "Credits",
+    "net": "Net",
+    "estimated": "Estimated",
+    "refundsDescription": "Refunds, offsets, and credit returns",
+    "netDescription": "Debit minus credit for the selected period",
+    "estimatedDescription": "Estimated debits that are not yet invoice-authoritative",
+    "totalEvents": "{{count}} total events in range",
+    "financeLedger": "Finance ledger",
+    "accountLevelCharges": "Account-level charges that do not map to a single inference request.",
+    "scope": "Scope",
+    "window": "Window",
+    "metric": "Metric"
+  },
+  "activity": {
+    "title": "Activity",
+    "filterByType": "Filter by type",
+    "allTypes": "All types",
+    "selectCompanyMessage": "Select a company to view activity.",
+    "noActivity": "No activity yet."
+  },
+  "inbox": {
+    "title": "Inbox",
+    "status": "Status",
+    "id": "ID",
+    "assignee": "Assignee",
+    "project": "Project",
+    "workspace": "Workspace",
+    "tags": "Tags",
+    "lastUpdated": "Last updated",
+    "unassigned": "Unassigned",
+    "updated": "Updated {{time}}"
+  },
+  "orgChart": {
+    "title": "Org Chart",
+    "noHierarchy": "No organizational hierarchy defined.",
+    "selectCompanyMessage": "Select a company to view the org chart."
+  },
+  "status": {
+    "backlog": "Backlog",
+    "todo": "Todo",
+    "in_progress": "In Progress",
+    "in_review": "In Review",
+    "done": "Done",
+    "cancelled": "Cancelled",
+    "blocked": "Blocked",
+    "active": "Active",
+    "running": "Running",
+    "paused": "Paused",
+    "idle": "Idle",
+    "error": "Error",
+    "archived": "Archived",
+    "pending_approval": "Pending Approval",
+    "revision_requested": "Revision Requested",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "failed": "Failed",
+    "timed_out": "Timed Out",
+    "succeeded": "Succeeded",
+    "terminated": "Terminated",
+    "pending": "Pending"
+  },
+  "priority": {
+    "critical": "Critical",
+    "high": "High",
+    "medium": "Medium",
+    "low": "Low"
+  },
+  "dialog": {
+    "newIssue": {
+      "title": "New issue",
+      "projectDefault": "Project default",
+      "newIsolatedWorkspace": "New isolated workspace",
+      "reuseExistingWorkspace": "Reuse existing workspace",
+      "document": "Document",
+      "attachment": "Attachment"
+    },
+    "newProject": {
+      "title": "New project",
+      "namePlaceholder": "Project name",
+      "descriptionPlaceholder": "Add description...",
+      "repoUrl": "Repo URL",
+      "repoUrlPlaceholder": "https://github.com/org/repo",
+      "localFolder": "Local folder",
+      "localFolderPlaceholder": "/absolute/path/to/workspace",
+      "localFolderError": "Local folder must be a full absolute path.",
+      "repoUrlError": "Repo must use a valid GitHub or GitHub Enterprise repo URL.",
+      "goal": "Goal",
+      "addGoal": "+ Goal",
+      "noGoal": "No goal",
+      "allGoalsSelected": "All goals already selected.",
+      "failedToCreate": "Failed to create project.",
+      "createProject": "Create project",
+      "creating": "Creating…"
+    },
+    "newGoal": {
+      "title": "New goal",
+      "newSubGoal": "New sub-goal",
+      "titlePlaceholder": "Goal title",
+      "descriptionPlaceholder": "Add description...",
+      "planned": "Planned",
+      "goalType": {
+        "company": "Company",
+        "team": "Team",
+        "agent": "Agent",
+        "task": "Task"
+      },
+      "parentGoal": "Parent goal",
+      "noParent": "No parent",
+      "createGoal": "Create goal",
+      "createSubGoal": "Create sub-goal",
+      "creating": "Creating…"
+    },
+    "newAgent": {
+      "title": "Add a new agent",
+      "recommendation": "We recommend letting your CEO handle agent setup — they know the org structure and can configure reporting, permissions, and adapters.",
+      "askCeo": "Ask the CEO to create a new agent",
+      "advancedConfig": "I want advanced configuration myself",
+      "chooseAdapter": "Choose your adapter type for advanced setup.",
+      "recommended": "Recommended"
+    }
+  },
+  "onboarding": {
+    "steps": {
+      "company": "Company",
+      "agent": "Agent",
+      "task": "Task",
+      "launch": "Launch"
+    },
+    "companySetup": {
+      "title": "Name your company",
+      "description": "This is the organization your agents will work for.",
+      "namePlaceholder": "Acme Corp",
+      "missionLabel": "Mission / goal (optional)",
+      "missionPlaceholder": "What is this company trying to achieve?"
+    },
+    "agentSetup": {
+      "title": "Create your first agent",
+      "description": "Choose how this agent will run tasks.",
+      "namePlaceholder": "CEO",
+      "adapterType": "Adapter type"
+    }
+  },
+  "auth": {
+    "signIn": "Sign in to Paperclip",
+    "signInDescription": "Use your email and password to access this instance.",
+    "signInButton": "Sign In",
+    "working": "Working…",
+    "createAccount": "Create your Paperclip account",
+    "createAccountDescription": "Create an account for this instance. Email confirmation is not required in v1.",
+    "createAccountButton": "Create Account",
+    "authFailed": "Authentication failed",
+    "fillRequired": "Please fill in all required fields.",
+    "needAccount": "Need an account?",
+    "createOne": "Create one",
+    "haveAccount": "Already have an account?",
+    "signInLink": "Sign in"
+  },
+  "instanceSettings": {
+    "general": {
+      "title": "General",
+      "description": "Configure instance-wide defaults that affect how operator-visible logs are displayed.",
+      "censorUsername": "Censor username in logs",
+      "censorUsernameDescription": "Hide the username segment in home-directory paths...",
+      "keyboardShortcuts": "Keyboard shortcuts",
+      "keyboardShortcutsDescription": "Enable app keyboard shortcuts, including inbox navigation...",
+      "aiFeedback": "AI feedback sharing",
+      "aiFeedbackDescription": "Control whether thumbs up and thumbs down votes can send...",
+      "alwaysAllow": "Always allow",
+      "alwaysAllowDescription": "Share voted AI outputs automatically.",
+      "dontAllow": "Don't allow",
+      "dontAllowDescription": "Keep voted AI outputs local only.",
+      "noDefaultSaved": "No default is saved yet. The next thumbs up or thumbs down choice will ask once and then save the answer here.",
+      "termsOfService": "Read our terms of service"
+    },
+    "heartbeats": {
+      "title": "Scheduler Heartbeats",
+      "description": "Agents with a timer heartbeat enabled across all of your companies.",
+      "disableAll": "Disable All",
+      "disabling": "Disabling...",
+      "loading": "Loading scheduler heartbeats...",
+      "loadFailed": "Failed to load scheduler heartbeats.",
+      "noMatch": "No scheduler heartbeats match the current criteria.",
+      "enableTimer": "Enable Timer Heartbeat",
+      "disableTimer": "Disable Timer Heartbeat",
+      "fullAgentConfig": "Full agent config"
+    }
+  },
+  "bootstrap": {
+    "title": "Instance setup required",
+    "hasInvite": "No instance admin exists yet. A bootstrap invite is already active. Check your Paperclip startup logs for the first admin invite URL, or run this command to rotate it:",
+    "noInvite": "No instance admin exists yet. Run this command in your Paperclip environment to generate the first admin invite URL:"
+  },
+  "onboardingRoute": {
+    "addAgentTo": "Add another agent to {{name}}",
+    "createAnotherCompany": "Create another company",
+    "createFirstCompany": "Create your first company",
+    "addAgentDescription": "Run onboarding again to add an agent and a starter task for this company.",
+    "createAnotherDescription": "Run onboarding again to create another company and seed its first agent.",
+    "createFirstDescription": "Get started by creating a company and your first agent.",
+    "addAgent": "Add Agent",
+    "startOnboarding": "Start Onboarding",
+    "newCompany": "New Company",
+    "getStartedDescription": "Get started by creating a company."
+  },
+  "notFound": {
+    "companyNotFound": "Company not found",
+    "pageNotFound": "Page not found",
+    "noCompanyMatch": "No company matches prefix \"{{prefix}}\".",
+    "routeNotExist": "This route does not exist.",
+    "requestedPath": "Requested path: {{path}}",
+    "openDashboard": "Open dashboard",
+    "goHome": "Go home"
+  },
+  "properties": {
+    "title": "Properties"
+  },
+  "dateRange": {
+    "monthToDate": "Month to Date",
+    "last7Days": "Last 7 Days",
+    "last30Days": "Last 30 Days",
+    "yearToDate": "Year to Date",
+    "allTime": "All Time",
+    "custom": "Custom"
+  },
+  "companySettings": {
+    "title": "Company Settings",
+    "importCompany": "Import company",
+    "exportCompany": "Export company"
+  },
+  "switchTheme": {
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode"
+  },
+  "projectStatus": {
+    "backlog": "Backlog",
+    "planned": "Planned",
+    "in_progress": "In Progress",
+    "completed": "Completed",
+    "cancelled": "Cancelled"
+  },
+  "language": {
+    "label": "Language",
+    "zh": "中文",
+    "en": "English"
+  }
+}

@@ -11,6 +11,7 @@ import { ExternalLink } from "lucide-react";
 import { Identity } from "./Identity";
 import { RunTranscriptView } from "./transcript/RunTranscriptView";
 import { useLiveRunTranscripts } from "./transcript/useLiveRunTranscripts";
+import { useTranslation } from "react-i18next";
 
 const MIN_DASHBOARD_RUNS = 4;
 
@@ -23,6 +24,7 @@ interface ActiveAgentsPanelProps {
 }
 
 export function ActiveAgentsPanel({ companyId }: ActiveAgentsPanelProps) {
+  const { t } = useTranslation();
   const { data: liveRuns } = useQuery({
     queryKey: [...queryKeys.liveRuns(companyId), "dashboard"],
     queryFn: () => heartbeatsApi.liveRunsForCompany(companyId, MIN_DASHBOARD_RUNS),
@@ -52,11 +54,11 @@ export function ActiveAgentsPanel({ companyId }: ActiveAgentsPanelProps) {
   return (
     <div>
       <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-        Agents
+        {t("nav.agents")}
       </h3>
       {runs.length === 0 ? (
         <div className="rounded-xl border border-border p-4">
-          <p className="text-sm text-muted-foreground">No recent agent runs.</p>
+          <p className="text-sm text-muted-foreground">{t("agents.noRecentRuns")}</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-4 xl:grid-cols-4">
@@ -89,6 +91,7 @@ function AgentRunCard({
   hasOutput: boolean;
   isActive: boolean;
 }) {
+  const { t } = useTranslation();
   return (
     <div className={cn(
       "flex h-[320px] flex-col overflow-hidden rounded-xl border shadow-sm",
@@ -148,7 +151,7 @@ function AgentRunCard({
           streaming={isActive}
           collapseStdout
           thinkingClassName="!text-[10px] !leading-4"
-          emptyMessage={hasOutput ? "Waiting for transcript parsing..." : isActive ? "Waiting for output..." : "No transcript captured."}
+          emptyMessage={hasOutput ? t("agents.waitingForTranscript") : isActive ? t("agents.waitingForOutput") : t("agents.noTranscript")}
         />
       </div>
     </div>

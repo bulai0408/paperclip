@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export type DatePreset = "mtd" | "7d" | "30d" | "ytd" | "all" | "custom";
 
@@ -12,6 +13,19 @@ export const PRESET_LABELS: Record<DatePreset, string> = {
 };
 
 export const PRESET_KEYS: DatePreset[] = ["mtd", "7d", "30d", "ytd", "all", "custom"];
+
+/** Hook that returns translated preset labels. Prefer this over the static PRESET_LABELS constant in UI code. */
+export function usePresetLabels(): Record<DatePreset, string> {
+  const { t } = useTranslation();
+  return {
+    mtd: t("dateRange.monthToDate"),
+    "7d": t("dateRange.last7Days"),
+    "30d": t("dateRange.last30Days"),
+    ytd: t("dateRange.yearToDate"),
+    all: t("dateRange.allTime"),
+    custom: t("dateRange.custom"),
+  };
+}
 
 // note: computeRange is called inside a useMemo that re-evaluates once per minute
 // (driven by minuteTick). this means sliding windows (7d, 30d) advance their upper

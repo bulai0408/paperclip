@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback, useMemo, type ChangeEvent, type DragEvent } from "react";
+import { useTranslation } from "react-i18next";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { pickTextColorForSolidBg } from "@/lib/color-contrast";
 import { useDialog } from "../context/DialogContext";
@@ -218,25 +219,10 @@ function formatFileSize(file: File) {
   return `${(file.size / (1024 * 1024)).toFixed(1)} MB`;
 }
 
-const statuses = [
-  { value: "backlog", label: "Backlog", color: issueStatusText.backlog ?? issueStatusTextDefault },
-  { value: "todo", label: "Todo", color: issueStatusText.todo ?? issueStatusTextDefault },
-  { value: "in_progress", label: "In Progress", color: issueStatusText.in_progress ?? issueStatusTextDefault },
-  { value: "in_review", label: "In Review", color: issueStatusText.in_review ?? issueStatusTextDefault },
-  { value: "done", label: "Done", color: issueStatusText.done ?? issueStatusTextDefault },
-];
-
-const priorities = [
-  { value: "critical", label: "Critical", icon: AlertTriangle, color: priorityColor.critical ?? priorityColorDefault },
-  { value: "high", label: "High", icon: ArrowUp, color: priorityColor.high ?? priorityColorDefault },
-  { value: "medium", label: "Medium", icon: Minus, color: priorityColor.medium ?? priorityColorDefault },
-  { value: "low", label: "Low", icon: ArrowDown, color: priorityColor.low ?? priorityColorDefault },
-];
-
 const EXECUTION_WORKSPACE_MODES = [
-  { value: "shared_workspace", label: "Project default" },
-  { value: "isolated_workspace", label: "New isolated workspace" },
-  { value: "reuse_existing", label: "Reuse existing workspace" },
+  { value: "shared_workspace", labelKey: "dialog.newIssue.projectDefault" },
+  { value: "isolated_workspace", labelKey: "dialog.newIssue.newIsolatedWorkspace" },
+  { value: "reuse_existing", labelKey: "dialog.newIssue.reuseExistingWorkspace" },
 ] as const;
 
 function defaultProjectWorkspaceIdForProject(project: { workspaces?: Array<{ id: string; isPrimary: boolean }>; executionWorkspacePolicy?: { defaultProjectWorkspaceId?: string | null } | null } | null | undefined) {
@@ -270,8 +256,24 @@ function issueExecutionWorkspaceModeForExistingWorkspace(mode: string | null | u
 }
 
 export function NewIssueDialog() {
+  const { t } = useTranslation();
   const { newIssueOpen, newIssueDefaults, closeNewIssue } = useDialog();
   const { companies, selectedCompanyId, selectedCompany } = useCompany();
+
+  const statuses = [
+    { value: "backlog", label: t("status.backlog"), color: issueStatusText.backlog ?? issueStatusTextDefault },
+    { value: "todo", label: t("status.todo"), color: issueStatusText.todo ?? issueStatusTextDefault },
+    { value: "in_progress", label: t("status.in_progress"), color: issueStatusText.in_progress ?? issueStatusTextDefault },
+    { value: "in_review", label: t("status.in_review"), color: issueStatusText.in_review ?? issueStatusTextDefault },
+    { value: "done", label: t("status.done"), color: issueStatusText.done ?? issueStatusTextDefault },
+  ];
+
+  const priorities = [
+    { value: "critical", label: t("priority.critical"), icon: AlertTriangle, color: priorityColor.critical ?? priorityColorDefault },
+    { value: "high", label: t("priority.high"), icon: ArrowUp, color: priorityColor.high ?? priorityColorDefault },
+    { value: "medium", label: t("priority.medium"), icon: Minus, color: priorityColor.medium ?? priorityColorDefault },
+    { value: "low", label: t("priority.low"), icon: ArrowDown, color: priorityColor.low ?? priorityColorDefault },
+  ];
   const queryClient = useQueryClient();
   const { pushToast } = useToast();
   const [title, setTitle] = useState("");
@@ -954,7 +956,7 @@ export function NewIssueDialog() {
               </PopoverContent>
             </Popover>
             <span className="text-muted-foreground/60">&rsaquo;</span>
-            <span>New issue</span>
+            <span>{t("dialog.newIssue.title")}</span>
           </div>
           <div className="flex items-center gap-1">
             <Button
@@ -1137,7 +1139,7 @@ export function NewIssueDialog() {
               >
                 {EXECUTION_WORKSPACE_MODES.map((option) => (
                   <option key={option.value} value={option.value}>
-                    {option.label}
+                    {t(option.labelKey)}
                   </option>
                 ))}
               </select>

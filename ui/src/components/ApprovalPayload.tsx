@@ -1,5 +1,6 @@
 import { UserPlus, Lightbulb, ShieldAlert, ShieldCheck } from "lucide-react";
 import { formatCents } from "../lib/utils";
+import { useTranslation } from "react-i18next";
 
 export const typeLabel: Record<string, string> = {
   hire_agent: "Hire Agent",
@@ -14,6 +15,16 @@ export function approvalLabel(type: string, payload?: Record<string, unknown> | 
     return `${base}: ${String(payload.name)}`;
   }
   return base;
+}
+
+/** Hook-based version of typeLabel that returns translated strings */
+export function useTypeLabel(): Record<string, string> {
+  const { t } = useTranslation();
+  return {
+    hire_agent: t("approvals.types.hire_agent"),
+    approve_ceo_strategy: t("approvals.types.ceo_strategy"),
+    budget_override_required: t("approvals.types.budget_override"),
+  };
 }
 
 export const typeIcon: Record<string, typeof UserPlus> = {

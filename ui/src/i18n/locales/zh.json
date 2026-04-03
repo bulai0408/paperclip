@@ -1,0 +1,414 @@
+{
+  "common": {
+    "loading": "加载中...",
+    "save": "保存",
+    "cancel": "取消",
+    "delete": "删除",
+    "edit": "编辑",
+    "create": "创建",
+    "close": "关闭",
+    "back": "返回",
+    "confirm": "确认",
+    "search": "搜索",
+    "noResults": "未找到结果。",
+    "actions": "操作",
+    "pages": "页面",
+    "all": "全部",
+    "none": "无",
+    "optional": "可选",
+    "beta": "测试版",
+    "documentation": "文档",
+    "version": "版本",
+    "status": "状态",
+    "name": "名称",
+    "email": "邮箱",
+    "password": "密码",
+    "description": "描述",
+    "selectCompany": "选择公司",
+    "live": "实时",
+    "on": "开",
+    "off": "关",
+    "never": "从未"
+  },
+  "nav": {
+    "newIssue": "新建工单",
+    "dashboard": "仪表盘",
+    "inbox": "收件箱",
+    "issues": "工单",
+    "routines": "例程",
+    "goals": "目标",
+    "projects": "项目",
+    "agents": "智能体",
+    "org": "组织",
+    "skills": "技能",
+    "costs": "成本",
+    "activity": "动态",
+    "settings": "设置",
+    "work": "工作",
+    "company": "公司",
+    "home": "首页",
+    "create": "创建",
+    "openSidebar": "打开侧边栏",
+    "closeSidebar": "关闭侧边栏",
+    "skipToMainContent": "跳转到主要内容",
+    "instanceSettings": "实例设置"
+  },
+  "mobileNav": {
+    "home": "首页",
+    "issues": "工单",
+    "create": "创建",
+    "agents": "智能体",
+    "inbox": "收件箱"
+  },
+  "instanceSidebar": {
+    "title": "实例设置",
+    "general": "通用",
+    "heartbeats": "心跳检测",
+    "experimental": "实验性",
+    "plugins": "插件"
+  },
+  "commandPalette": {
+    "placeholder": "搜索工单、智能体、项目...",
+    "noResults": "未找到结果。",
+    "actions": "操作",
+    "pages": "页面",
+    "issues": "工单",
+    "agents": "智能体",
+    "projects": "项目",
+    "createNewIssue": "创建新工单",
+    "createNewAgent": "创建新智能体",
+    "createNewProject": "创建新项目"
+  },
+  "dashboard": {
+    "title": "仪表盘",
+    "agentsEnabled": "启用的智能体",
+    "tasksInProgress": "进行中的任务",
+    "monthSpend": "本月支出",
+    "pendingApprovals": "待审批",
+    "running": "运行中",
+    "paused": "已暂停",
+    "errors": "错误",
+    "open": "开放",
+    "blocked": "阻塞",
+    "awaitingBoardReview": "等待评审",
+    "budgetOverridesAwaiting": "{{count}} 个预算变更等待评审",
+    "unlimitedBudget": "无限预算",
+    "budgetPercent": "占 {{budget}} 预算的 {{percent}}%",
+    "activeBudgetIncident": "{{count}} 个活跃预算事件",
+    "agentsPaused": "{{count}} 个智能体已暂停",
+    "projectsPaused": "{{count}} 个项目已暂停",
+    "pendingBudgetApprovals": "{{count}} 个待处理预算审批",
+    "openBudgets": "查看预算",
+    "noAgents": "您还没有智能体。",
+    "createOneHere": "在此创建",
+    "recentActivity": "最近动态",
+    "recentTasks": "最近任务",
+    "noTasksYet": "暂无任务。",
+    "runActivity": "运行动态",
+    "last14Days": "最近 14 天",
+    "issuesByPriority": "按优先级分类的工单",
+    "issuesByStatus": "按状态分类的工单",
+    "successRate": "成功率",
+    "welcomeMessage": "欢迎使用 Paperclip。设置您的第一个公司和智能体以开始使用。",
+    "selectCompanyMessage": "创建或选择一个公司以查看仪表盘。",
+    "getStarted": "开始使用"
+  },
+  "agents": {
+    "title": "智能体",
+    "all": "全部",
+    "active": "活跃",
+    "paused": "已暂停",
+    "error": "错误",
+    "filters": "筛选",
+    "showTerminated": "显示已终止",
+    "newAgent": "新建智能体",
+    "noMatch": "没有匹配所选筛选条件的智能体。",
+    "noOrgHierarchy": "未定义组织层级。",
+    "agentCount": "{{count}} 个智能体",
+    "liveCount": "{{count}} 个在线",
+    "selectCompanyMessage": "选择一个公司以查看智能体。",
+    "createFirstAgent": "创建您的第一个智能体以开始使用。",
+    "noRecentRuns": "没有最近的智能体运行。",
+    "waitingForTranscript": "等待转录解析...",
+    "waitingForOutput": "等待输出...",
+    "noTranscript": "未捕获转录。"
+  },
+  "issues": {
+    "title": "工单",
+    "selectCompanyMessage": "选择一个公司以查看工单。"
+  },
+  "projects": {
+    "title": "项目",
+    "addProject": "添加项目",
+    "noProjects": "暂无项目。",
+    "selectCompanyMessage": "选择一个公司以查看项目。"
+  },
+  "goals": {
+    "title": "目标",
+    "newGoal": "新建目标",
+    "noGoals": "暂无目标。",
+    "selectCompanyMessage": "选择一个公司以查看目标。"
+  },
+  "approvals": {
+    "title": "审批",
+    "pending": "待处理",
+    "all": "全部",
+    "noPending": "没有待处理的审批。",
+    "noApprovals": "暂无审批。",
+    "failedToApprove": "审批失败",
+    "failedToReject": "拒绝失败",
+    "types": {
+      "hire_agent": "招聘智能体",
+      "ceo_strategy": "CEO 策略",
+      "budget_override": "预算变更"
+    }
+  },
+  "costs": {
+    "title": "成本",
+    "debits": "借方",
+    "credits": "贷方",
+    "net": "净额",
+    "estimated": "预估",
+    "refundsDescription": "退款、抵消和信用返还",
+    "netDescription": "所选期间的借方减去贷方",
+    "estimatedDescription": "尚未确认的预估借方",
+    "totalEvents": "范围内共 {{count}} 个事件",
+    "financeLedger": "财务分类账",
+    "accountLevelCharges": "不对应单个推理请求的账户级费用。",
+    "scope": "范围",
+    "window": "窗口",
+    "metric": "指标"
+  },
+  "activity": {
+    "title": "动态",
+    "filterByType": "按类型筛选",
+    "allTypes": "所有类型",
+    "selectCompanyMessage": "选择一个公司以查看动态。",
+    "noActivity": "暂无动态。"
+  },
+  "inbox": {
+    "title": "收件箱",
+    "status": "状态",
+    "id": "ID",
+    "assignee": "负责人",
+    "project": "项目",
+    "workspace": "工作区",
+    "tags": "标签",
+    "lastUpdated": "最后更新",
+    "unassigned": "未分配",
+    "updated": "更新于 {{time}}"
+  },
+  "orgChart": {
+    "title": "组织架构",
+    "noHierarchy": "未定义组织层级。",
+    "selectCompanyMessage": "选择一个公司以查看组织架构。"
+  },
+  "status": {
+    "backlog": "待办列表",
+    "todo": "待处理",
+    "in_progress": "进行中",
+    "in_review": "审核中",
+    "done": "已完成",
+    "cancelled": "已取消",
+    "blocked": "已阻塞",
+    "active": "活跃",
+    "running": "运行中",
+    "paused": "已暂停",
+    "idle": "空闲",
+    "error": "错误",
+    "archived": "已归档",
+    "pending_approval": "待审批",
+    "revision_requested": "需修改",
+    "approved": "已批准",
+    "rejected": "已拒绝",
+    "failed": "失败",
+    "timed_out": "超时",
+    "succeeded": "成功",
+    "terminated": "已终止",
+    "pending": "等待中"
+  },
+  "priority": {
+    "critical": "紧急",
+    "high": "高",
+    "medium": "中",
+    "low": "低"
+  },
+  "dialog": {
+    "newIssue": {
+      "title": "新建工单",
+      "projectDefault": "项目默认",
+      "newIsolatedWorkspace": "新建隔离工作区",
+      "reuseExistingWorkspace": "复用现有工作区",
+      "document": "文档",
+      "attachment": "附件"
+    },
+    "newProject": {
+      "title": "新建项目",
+      "namePlaceholder": "项目名称",
+      "descriptionPlaceholder": "添加描述...",
+      "repoUrl": "仓库 URL",
+      "repoUrlPlaceholder": "https://github.com/org/repo",
+      "localFolder": "本地文件夹",
+      "localFolderPlaceholder": "/absolute/path/to/workspace",
+      "localFolderError": "本地文件夹必须是完整的绝对路径。",
+      "repoUrlError": "仓库必须使用有效的 GitHub 或 GitHub Enterprise 仓库 URL。",
+      "goal": "目标",
+      "addGoal": "+ 目标",
+      "noGoal": "无目标",
+      "allGoalsSelected": "所有目标已选择。",
+      "failedToCreate": "创建项目失败。",
+      "createProject": "创建项目",
+      "creating": "创建中..."
+    },
+    "newGoal": {
+      "title": "新建目标",
+      "newSubGoal": "新建子目标",
+      "titlePlaceholder": "目标标题",
+      "descriptionPlaceholder": "添加描述...",
+      "planned": "已规划",
+      "goalType": {
+        "company": "公司",
+        "team": "团队",
+        "agent": "智能体",
+        "task": "任务"
+      },
+      "parentGoal": "父目标",
+      "noParent": "无父目标",
+      "createGoal": "创建目标",
+      "createSubGoal": "创建子目标",
+      "creating": "创建中..."
+    },
+    "newAgent": {
+      "title": "添加新智能体",
+      "recommendation": "我们建议让您的 CEO 来处理智能体设置——他们了解组织结构，可以配置汇报关系、权限和适配器。",
+      "askCeo": "请求 CEO 创建新智能体",
+      "advancedConfig": "我要自己进行高级配置",
+      "chooseAdapter": "为高级设置选择您的适配器类型。",
+      "recommended": "推荐"
+    }
+  },
+  "onboarding": {
+    "steps": {
+      "company": "公司",
+      "agent": "智能体",
+      "task": "任务",
+      "launch": "启动"
+    },
+    "companySetup": {
+      "title": "为您的公司命名",
+      "description": "这是您的智能体将为之工作的组织。",
+      "namePlaceholder": "Acme 公司",
+      "missionLabel": "使命 / 目标（可选）",
+      "missionPlaceholder": "这个公司的目标是什么？"
+    },
+    "agentSetup": {
+      "title": "创建您的第一个智能体",
+      "description": "选择这个智能体将如何运行任务。",
+      "namePlaceholder": "CEO",
+      "adapterType": "适配器类型"
+    }
+  },
+  "auth": {
+    "signIn": "登录 Paperclip",
+    "signInDescription": "使用您的邮箱和密码访问此实例。",
+    "signInButton": "登录",
+    "working": "处理中...",
+    "createAccount": "创建您的 Paperclip 账户",
+    "createAccountDescription": "为此实例创建一个账户。v1 版本不需要邮箱确认。",
+    "createAccountButton": "创建账户",
+    "authFailed": "认证失败",
+    "fillRequired": "请填写所有必填字段。",
+    "needAccount": "需要账户？",
+    "createOne": "创建一个",
+    "haveAccount": "已有账户？",
+    "signInLink": "登录"
+  },
+  "instanceSettings": {
+    "general": {
+      "title": "通用",
+      "description": "配置影响操作日志显示的实例范围默认值。",
+      "censorUsername": "在日志中隐藏用户名",
+      "censorUsernameDescription": "隐藏主目录路径中的用户名段...",
+      "keyboardShortcuts": "键盘快捷键",
+      "keyboardShortcutsDescription": "启用应用键盘快捷键，包括收件箱导航...",
+      "aiFeedback": "AI 反馈分享",
+      "aiFeedbackDescription": "控制点赞和点踩投票是否可以发送...",
+      "alwaysAllow": "始终允许",
+      "alwaysAllowDescription": "自动分享投票的 AI 输出。",
+      "dontAllow": "不允许",
+      "dontAllowDescription": "仅在本地保留投票的 AI 输出。",
+      "noDefaultSaved": "尚未保存默认设置。下次点赞或点踩时将询问一次，然后在此保存答案。",
+      "termsOfService": "阅读我们的服务条款"
+    },
+    "heartbeats": {
+      "title": "调度器心跳",
+      "description": "所有公司中启用了定时器心跳的智能体。",
+      "disableAll": "全部禁用",
+      "disabling": "禁用中...",
+      "loading": "加载调度器心跳中...",
+      "loadFailed": "加载调度器心跳失败。",
+      "noMatch": "没有匹配当前条件的调度器心跳。",
+      "enableTimer": "启用定时器心跳",
+      "disableTimer": "禁用定时器心跳",
+      "fullAgentConfig": "完整智能体配置"
+    }
+  },
+  "bootstrap": {
+    "title": "需要实例设置",
+    "hasInvite": "尚无实例管理员。引导邀请已激活。请查看 Paperclip 启动日志中的首个管理员邀请 URL，或运行此命令进行轮换：",
+    "noInvite": "尚无实例管理员。在您的 Paperclip 环境中运行此命令以生成首个管理员邀请 URL："
+  },
+  "onboardingRoute": {
+    "addAgentTo": "为 {{name}} 添加另一个智能体",
+    "createAnotherCompany": "创建另一个公司",
+    "createFirstCompany": "创建您的第一个公司",
+    "addAgentDescription": "再次运行新手引导以添加智能体和此公司的初始任务。",
+    "createAnotherDescription": "再次运行新手引导以创建另一个公司并初始化其第一个智能体。",
+    "createFirstDescription": "通过创建一个公司和您的第一个智能体来开始。",
+    "addAgent": "添加智能体",
+    "startOnboarding": "开始新手引导",
+    "newCompany": "新建公司",
+    "getStartedDescription": "通过创建一个公司来开始。"
+  },
+  "notFound": {
+    "companyNotFound": "未找到公司",
+    "pageNotFound": "页面未找到",
+    "noCompanyMatch": "没有匹配前缀 \"{{prefix}}\" 的公司。",
+    "routeNotExist": "此路由不存在。",
+    "requestedPath": "请求的路径：{{path}}",
+    "openDashboard": "打开仪表盘",
+    "goHome": "返回首页"
+  },
+  "properties": {
+    "title": "属性"
+  },
+  "dateRange": {
+    "monthToDate": "本月至今",
+    "last7Days": "最近 7 天",
+    "last30Days": "最近 30 天",
+    "yearToDate": "本年至今",
+    "allTime": "所有时间",
+    "custom": "自定义"
+  },
+  "companySettings": {
+    "title": "公司设置",
+    "importCompany": "导入公司",
+    "exportCompany": "导出公司"
+  },
+  "switchTheme": {
+    "switchToLight": "切换到浅色模式",
+    "switchToDark": "切换到深色模式"
+  },
+  "projectStatus": {
+    "backlog": "待办列表",
+    "planned": "已规划",
+    "in_progress": "进行中",
+    "completed": "已完成",
+    "cancelled": "已取消"
+  },
+  "language": {
+    "label": "语言",
+    "zh": "中文",
+    "en": "English"
+  }
+}
