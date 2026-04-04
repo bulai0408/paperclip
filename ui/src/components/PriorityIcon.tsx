@@ -1,15 +1,16 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ArrowUp, ArrowDown, Minus, AlertTriangle } from "lucide-react";
 import { cn } from "../lib/utils";
 import { priorityColor, priorityColorDefault } from "../lib/status-colors";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 
-const priorityConfig: Record<string, { icon: typeof ArrowUp; color: string; label: string }> = {
-  critical: { icon: AlertTriangle, color: priorityColor.critical ?? priorityColorDefault, label: "Critical" },
-  high: { icon: ArrowUp, color: priorityColor.high ?? priorityColorDefault, label: "High" },
-  medium: { icon: Minus, color: priorityColor.medium ?? priorityColorDefault, label: "Medium" },
-  low: { icon: ArrowDown, color: priorityColor.low ?? priorityColorDefault, label: "Low" },
+const PRIORITY_ICONS: Record<string, { icon: typeof ArrowUp; color: string }> = {
+  critical: { icon: AlertTriangle, color: priorityColor.critical ?? priorityColorDefault },
+  high: { icon: ArrowUp, color: priorityColor.high ?? priorityColorDefault },
+  medium: { icon: Minus, color: priorityColor.medium ?? priorityColorDefault },
+  low: { icon: ArrowDown, color: priorityColor.low ?? priorityColorDefault },
 };
 
 const allPriorities = ["critical", "high", "medium", "low"];
@@ -22,7 +23,16 @@ interface PriorityIconProps {
 }
 
 export function PriorityIcon({ priority, onChange, className, showLabel }: PriorityIconProps) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
+
+  const priorityConfig: Record<string, { icon: typeof ArrowUp; color: string; label: string }> = {
+    critical: { ...PRIORITY_ICONS.critical!, label: t("priority.critical") },
+    high: { ...PRIORITY_ICONS.high!, label: t("priority.high") },
+    medium: { ...PRIORITY_ICONS.medium!, label: t("priority.medium") },
+    low: { ...PRIORITY_ICONS.low!, label: t("priority.low") },
+  };
+
   const config = priorityConfig[priority] ?? priorityConfig.medium!;
   const Icon = config.icon;
 

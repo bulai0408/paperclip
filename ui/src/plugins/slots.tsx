@@ -29,6 +29,7 @@ import {
   type ReactNode,
   type ComponentType,
 } from "react";
+import { t as i18nT } from "i18next";
 import { useQuery } from "@tanstack/react-query";
 import type {
   PluginLauncherDeclaration,
@@ -107,7 +108,7 @@ function requiresEntityType(slotType: PluginUiSlotType): boolean {
 
 function getErrorMessage(error: unknown): string {
   if (error instanceof Error && error.message) return error.message;
-  return "Unknown error";
+  return i18nT("plugins.unknownError");
 }
 
 /**
@@ -626,7 +627,7 @@ class PluginSlotErrorBoundary extends Component<PluginSlotErrorBoundaryProps, Pl
     if (this.state.hasError) {
       return (
         <div className={cn("rounded-md border border-destructive/30 bg-destructive/5 px-2 py-1 text-xs text-destructive", this.props.className)}>
-          {this.props.slot.pluginDisplayName}: failed to render
+          {this.props.slot.pluginDisplayName}: {i18nT("plugins.failedToRender")}
         </div>
       );
     }

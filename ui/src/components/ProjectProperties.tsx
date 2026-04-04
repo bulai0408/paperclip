@@ -658,7 +658,7 @@ export function ProjectProperties({ project, onUpdate, onFieldUpdate, getFieldSa
                       variant="ghost"
                       size="icon-xs"
                       onClick={clearRepoWorkspace}
-                      aria-label="Clear repo"
+                      aria-label={t("properties.clearRepo")}
                     >
                       <Trash2 className="h-3 w-3" />
                     </Button>
@@ -761,7 +761,7 @@ export function ProjectProperties({ project, onUpdate, onFieldUpdate, getFieldSa
                             {service.url}
                           </a>
                         ) : (
-                          service.command ?? "No URL"
+                          service.command ?? t("properties.noUrl")
                         )}
                       </div>
                     </div>
@@ -1074,7 +1074,7 @@ export function ProjectProperties({ project, onUpdate, onFieldUpdate, getFieldSa
                         <div>
                           <div className="mb-1 flex items-center gap-1.5">
                             <label className="flex items-center gap-2 text-xs text-muted-foreground">
-                              <span>Teardown command</span>
+                              <span>{t("workspace.teardownCommand")}</span>
                               <SaveIndicator state={fieldState("execution_workspace_teardown_command")} />
                             </label>
                           </div>
@@ -1096,8 +1096,7 @@ export function ProjectProperties({ project, onUpdate, onFieldUpdate, getFieldSa
                           />
                         </div>
                         <p className="text-[11px] text-muted-foreground">
-                          Provision runs inside the derived worktree before agent execution. Teardown is stored here for
-                          future cleanup flows.
+                          {t("properties.worktreeCommandsDesc")}
                         </p>
                       </div>
                     ) : null}
@@ -1115,7 +1114,7 @@ export function ProjectProperties({ project, onUpdate, onFieldUpdate, getFieldSa
           <Separator className="my-4" />
           <div className="space-y-4 py-4">
             <div className="text-xs font-medium text-destructive uppercase tracking-wide">
-              Danger Zone
+              {t("properties.dangerZone")}
             </div>
             <ArchiveDangerZone
               project={project}

@@ -1,4 +1,5 @@
 import type { HeartbeatRun } from "@paperclipai/shared";
+import { useTranslation } from "react-i18next";
 
 /* ---- Utilities ---- */
 
@@ -75,7 +76,9 @@ export function RunActivityChart({ runs }: { runs: HeartbeatRun[] }) {
   const maxValue = Math.max(...Array.from(grouped.values()).map(v => v.succeeded + v.failed + v.other), 1);
   const hasData = Array.from(grouped.values()).some(v => v.succeeded + v.failed + v.other > 0);
 
-  if (!hasData) return <p className="text-xs text-muted-foreground">No runs yet</p>;
+  const { t } = useTranslation();
+
+  if (!hasData) return <p className="text-xs text-muted-foreground">{t("activityCharts.noRunsYet")}</p>;
 
   return (
     <div>
@@ -127,7 +130,9 @@ export function PriorityChart({ issues }: { issues: { priority: string; createdA
   const maxValue = Math.max(...Array.from(grouped.values()).map(v => Object.values(v).reduce((a, b) => a + b, 0)), 1);
   const hasData = Array.from(grouped.values()).some(v => Object.values(v).reduce((a, b) => a + b, 0) > 0);
 
-  if (!hasData) return <p className="text-xs text-muted-foreground">No issues</p>;
+  const { t } = useTranslation();
+
+  if (!hasData) return <p className="text-xs text-muted-foreground">{t("activityCharts.noIssues")}</p>;
 
   return (
     <div>
@@ -167,14 +172,14 @@ const statusColors: Record<string, string> = {
   backlog: "#64748b",
 };
 
-const statusLabels: Record<string, string> = {
-  todo: "To Do",
-  in_progress: "In Progress",
-  in_review: "In Review",
-  done: "Done",
-  blocked: "Blocked",
-  cancelled: "Cancelled",
-  backlog: "Backlog",
+const statusLabelKeys: Record<string, string> = {
+  todo: "activityCharts.status.todo",
+  in_progress: "activityCharts.status.inProgress",
+  in_review: "activityCharts.status.inReview",
+  done: "activityCharts.status.done",
+  blocked: "activityCharts.status.blocked",
+  cancelled: "activityCharts.status.cancelled",
+  backlog: "activityCharts.status.backlog",
 };
 
 export function IssueStatusChart({ issues }: { issues: { status: string; createdAt: Date }[] }) {
@@ -194,7 +199,9 @@ export function IssueStatusChart({ issues }: { issues: { status: string; created
   const maxValue = Math.max(...Array.from(grouped.values()).map(v => Object.values(v).reduce((a, b) => a + b, 0)), 1);
   const hasData = allStatuses.size > 0;
 
-  if (!hasData) return <p className="text-xs text-muted-foreground">No issues</p>;
+  const { t } = useTranslation();
+
+  if (!hasData) return <p className="text-xs text-muted-foreground">{t("activityCharts.noIssues")}</p>;
 
   return (
     <div>
@@ -219,7 +226,7 @@ export function IssueStatusChart({ issues }: { issues: { status: string; created
         })}
       </div>
       <DateLabels days={days} />
-      <ChartLegend items={statusOrder.map(s => ({ color: statusColors[s] ?? "#6b7280", label: statusLabels[s] ?? s }))} />
+      <ChartLegend items={statusOrder.map(s => ({ color: statusColors[s] ?? "#6b7280", label: statusLabelKeys[s] ? t(statusLabelKeys[s]) : s }))} />
     </div>
   );
 }
@@ -237,7 +244,8 @@ export function SuccessRateChart({ runs }: { runs: HeartbeatRun[] }) {
   }
 
   const hasData = Array.from(grouped.values()).some(v => v.total > 0);
-  if (!hasData) return <p className="text-xs text-muted-foreground">No runs yet</p>;
+  const { t } = useTranslation();
+  if (!hasData) return <p className="text-xs text-muted-foreground">{t("activityCharts.noRunsYet")}</p>;
 
   return (
     <div>

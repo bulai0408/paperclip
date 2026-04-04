@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
+import { t as i18nT } from "i18next";
 
 export interface Breadcrumb {
   label: string;
@@ -21,10 +22,10 @@ export function BreadcrumbProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (breadcrumbs.length === 0) {
-      document.title = "Paperclip";
+      document.title = i18nT("app.name");
     } else {
       const parts = [...breadcrumbs].reverse().map((b) => b.label);
-      document.title = `${parts.join(" · ")} · Paperclip`;
+      document.title = `${parts.join(" · ")} · ${i18nT("app.name")}`;
     }
   }, [breadcrumbs]);
 

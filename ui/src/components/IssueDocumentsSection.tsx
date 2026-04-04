@@ -698,8 +698,8 @@ export function IssueDocumentsSection({
             {extraActions}
             <Button variant="outline" size="sm" onClick={beginNewDocument} className="shrink-0">
               <Plus className="mr-1.5 h-3.5 w-3.5" />
-              <span className="hidden sm:inline">New document</span>
-              <span className="sm:hidden">New</span>
+              <span className="hidden sm:inline">{t("documents.newDocument")}</span>
+              <span className="sm:hidden">{t("documents.new")}</span>
             </Button>
           </div>
         </div>
@@ -1003,7 +1003,7 @@ export function IssueDocumentsSection({
                     <div className="rounded-md border border-amber-500/30 bg-amber-500/5 px-3 py-3">
                       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                         <div className="space-y-1">
-                          <p className="text-sm font-medium text-amber-200">Out of date</p>
+                          <p className="text-sm font-medium text-amber-200">{t("documents.outOfDate")}</p>
                           <p className="text-xs text-muted-foreground">
                             This document changed while you were editing. Your local draft is preserved and autosave is paused.
                           </p>
@@ -1121,7 +1121,7 @@ export function IssueDocumentsSection({
                         ? "Viewing historical revision"
                         : activeDraft
                           ? activeConflict
-                          ? "Out of date"
+                          ? t("documents.outOfDate")
                           : autosaveDocumentKey === doc.key
                             ? autosaveState === "saving"
                               ? "Autosaving..."

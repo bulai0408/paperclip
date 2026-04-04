@@ -1,4 +1,5 @@
 import { useEffect, useRef, type ReactNode } from "react";
+import { t as i18nT } from "i18next";
 import { useQuery, useQueryClient, type QueryClient } from "@tanstack/react-query";
 import type { Agent, Issue, LiveEvent } from "@paperclipai/shared";
 import type { RunForIssue } from "../api/activity";
@@ -62,13 +63,13 @@ function resolveActorLabel(
   actorId: string | null,
 ): string {
   if (actorType === "agent" && actorId) {
-    return resolveAgentName(queryClient, companyId, actorId) ?? `Agent ${shortId(actorId)}`;
+    return resolveAgentName(queryClient, companyId, actorId) ?? `${i18nT("live.agent")} ${shortId(actorId)}`;
   }
-  if (actorType === "system") return "System";
+  if (actorType === "system") return i18nT("live.system");
   if (actorType === "user" && actorId) {
-    return "Board";
+    return i18nT("live.board");
   }
-  return "Someone";
+  return i18nT("live.someone");
 }
 
 interface IssueToastContext {
@@ -136,7 +137,7 @@ function resolveIssueToastContext(
     readString(details?.identifier) ??
     readString(details?.issueIdentifier) ??
     cachedIssue?.identifier ??
-    `Issue ${shortId(issueId)}`;
+    `${i18nT("live.issue")} ${shortId(issueId)}`;
   const title =
     readString(details?.title) ??
     readString(details?.issueTitle) ??
@@ -264,16 +265,16 @@ function describeIssueUpdate(details: Record<string, unknown> | null): string | 
   if (typeof details.status === "string") changes.push(`status -> ${details.status.replace(/_/g, " ")}`);
   if (typeof details.priority === "string") changes.push(`priority -> ${details.priority}`);
   if (typeof details.assigneeAgentId === "string" || typeof details.assigneeUserId === "string") {
-    changes.push("reassigned");
+    changes.push(i18nT("live.reassigned"));
   } else if (details.assigneeAgentId === null || details.assigneeUserId === null) {
-    changes.push("unassigned");
+    changes.push(i18nT("live.unassigned"));
   }
   if (details.reopened === true) {
     const from = readString(details.reopenedFrom);
-    changes.push(from ? `reopened from ${from.replace(/_/g, " ")}` : "reopened");
+    changes.push(from ? `${i18nT("live.reopenedFrom")} ${from.replace(/_/g, " ")}` : i18nT("live.reopened"));
   }
-  if (typeof details.title === "string") changes.push("title changed");
-  if (typeof details.description === "string") changes.push("description changed");
+  if (typeof details.title === "string") changes.push(i18nT("live.titleChanged"));
+  if (typeof details.description === "string") changes.push(i18nT("live.descriptionChanged"));
   if (changes.length > 0) return changes.join(", ");
   return null;
 }
@@ -304,10 +305,10 @@ function buildActivityToast(
 
   if (action === "issue.created") {
     return {
-      title: `${actor} created ${issue.ref}`,
+      title: `${actor} ${i18nT("live.created")} ${issue.ref}`,
       body: issue.title ? truncate(issue.title, 96) : undefined,
       tone: "success",
-      action: { label: `View ${issue.ref}`, href: issue.href },
+      action: { label: `${i18nT("live.view")} ${issue.ref}`, href: issue.href },
       dedupeKey: `activity:${action}:${entityId}`,
     };
   }
@@ -326,10 +327,10 @@ function buildActivityToast(
         ? truncate(issue.title, 96)
         : issue.label;
     return {
-      title: `${actor} updated ${issue.ref}`,
+      title: `${actor} ${i18nT("live.updated")} ${issue.ref}`,
       body: truncate(body, 100),
       tone: "info",
-      action: { label: `View ${issue.ref}`, href: issue.href },
+      action: { label: `${i18nT("live.view")} ${issue.ref}`, href: issue.href },
       dedupeKey: `activity:${action}:${entityId}`,
     };
   }
@@ -341,14 +342,14 @@ function buildActivityToast(
   const reopenedFrom = readString(details?.reopenedFrom);
   const reopenedLabel = reopened
     ? reopenedFrom
-      ? `reopened from ${reopenedFrom.replace(/_/g, " ")}`
-      : "reopened"
+      ? `${i18nT("live.reopenedFrom")} ${reopenedFrom.replace(/_/g, " ")}`
+      : i18nT("live.reopened")
     : null;
   const title = reopened
-    ? `${actor} reopened and commented on ${issue.ref}`
+    ? `${actor} ${i18nT("live.reopenedAndCommentedOn")} ${issue.ref}`
     : updated
-      ? `${actor} commented and updated ${issue.ref}`
-      : `${actor} commented on ${issue.ref}`;
+      ? `${actor} ${i18nT("live.commentedAndUpdated")} ${issue.ref}`
+      : `${actor} ${i18nT("live.commentedOn")} ${issue.ref}`;
   const body = bodySnippet
     ? reopenedLabel
       ? `${reopenedLabel} - ${bodySnippet.replace(/^#+\s*/m, "").replace(/\n/g, " ")}`
@@ -362,7 +363,7 @@ function buildActivityToast(
     title,
     body: body ? truncate(body, 96) : undefined,
     tone: "info",
-    action: { label: `View ${issue.ref}`, href: issue.href },
+    action: { label: `${i18nT("live.view")} ${issue.ref}`, href: issue.href },
     dedupeKey: `activity:${action}:${entityId}:${commentId ?? "na"}`,
   };
 }
@@ -379,13 +380,13 @@ function buildJoinRequestToast(
   if (action !== "join.requested" && action !== "join.request_replayed") return null;
 
   const requestType = readString(details?.requestType);
-  const label = requestType === "agent" ? "Agent" : "Someone";
+  const label = requestType === "agent" ? i18nT("live.agent") : i18nT("live.someone");
 
   return {
-    title: `${label} wants to join`,
-    body: "A new join request is waiting for approval.",
+    title: `${label} ${i18nT("live.wantsToJoin")}`,
+    body: i18nT("live.joinRequestWaiting"),
     tone: "info",
-    action: { label: "View inbox", href: "/inbox/mine" },
+    action: { label: i18nT("live.viewInbox"), href: "/inbox/mine" },
     dedupeKey: `join-request:${entityId}`,
   };
 }
@@ -401,11 +402,11 @@ function buildAgentStatusToast(
   if (!agentId || !status || !AGENT_TOAST_STATUSES.has(status)) return null;
 
   const tone = status === "error" ? "error" : "info";
-  const name = nameOf(agentId) ?? `Agent ${shortId(agentId)}`;
+  const name = nameOf(agentId) ?? `${i18nT("live.agent")} ${shortId(agentId)}`;
   const title =
     status === "running"
-      ? `${name} started`
-      : `${name} errored`;
+      ? `${name} ${i18nT("live.started")}`
+      : `${name} ${i18nT("live.errored")}`;
 
   const agents = queryClient.getQueryData<Agent[]>(queryKeys.agents.list(companyId));
   const agent = agents?.find((a) => a.id === agentId);
@@ -415,7 +416,7 @@ function buildAgentStatusToast(
     title,
     body,
     tone,
-    action: { label: "View agent", href: `/agents/${agentId}` },
+    action: { label: i18nT("live.viewAgent"), href: `/agents/${agentId}` },
     dedupeKey: `agent-status:${agentId}:${status}`,
   };
 }
@@ -431,20 +432,20 @@ function buildRunStatusToast(
 
   const error = readString(payload.error);
   const triggerDetail = readString(payload.triggerDetail);
-  const name = nameOf(agentId) ?? `Agent ${shortId(agentId)}`;
+  const name = nameOf(agentId) ?? `${i18nT("live.agent")} ${shortId(agentId)}`;
   const tone = status === "succeeded" ? "success" : status === "cancelled" ? "warn" : "error";
   const statusLabel =
-    status === "succeeded" ? "succeeded"
-      : status === "failed" ? "failed"
-        : status === "timed_out" ? "timed out"
-          : "cancelled";
-  const title = `${name} run ${statusLabel}`;
+    status === "succeeded" ? i18nT("live.runSucceeded")
+      : status === "failed" ? i18nT("live.runFailed")
+        : status === "timed_out" ? i18nT("live.runTimedOut")
+          : i18nT("live.runCancelled");
+  const title = `${name} ${i18nT("live.run")} ${statusLabel}`;
 
   let body: string | undefined;
   if (error) {
     body = truncate(error, 100);
   } else if (triggerDetail) {
-    body = `Trigger: ${triggerDetail}`;
+    body = `${i18nT("live.trigger")} ${triggerDetail}`;
   }
 
   return {
@@ -452,7 +453,7 @@ function buildRunStatusToast(
     body,
     tone,
     ttlMs: status === "succeeded" ? 5000 : 7000,
-    action: { label: "View run", href: `/agents/${agentId}/runs/${runId}` },
+    action: { label: i18nT("live.viewRun"), href: `/agents/${agentId}/runs/${runId}` },
     dedupeKey: `run-status:${runId}:${status}`,
   };
 }

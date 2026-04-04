@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn, formatDateTime } from "../lib/utils";
@@ -10,32 +11,32 @@ import { ExternalLink, FlaskConical, LayoutPanelLeft, MonitorCog, PanelsTopLeft,
 
 type SurfaceId = "detail" | "live" | "dashboard";
 
-const surfaceOptions: Array<{
+const surfaceOptionDefs: Array<{
   id: SurfaceId;
-  label: string;
-  eyebrow: string;
-  description: string;
+  labelKey: string;
+  eyebrowKey: string;
+  descriptionKey: string;
   icon: typeof LayoutPanelLeft;
 }> = [
   {
     id: "detail",
-    label: "Run Detail",
-    eyebrow: "Full transcript",
-    description: "The long-form run page with the `Nice | Raw` toggle and the most inspectable transcript view.",
+    labelKey: "runTranscriptUxLab.surface.detail.label",
+    eyebrowKey: "runTranscriptUxLab.surface.detail.eyebrow",
+    descriptionKey: "runTranscriptUxLab.surface.detail.description",
     icon: MonitorCog,
   },
   {
     id: "live",
-    label: "Issue Widget",
-    eyebrow: "Live stream",
-    description: "The issue-detail live run widget, optimized for following an active run without leaving the task page.",
+    labelKey: "runTranscriptUxLab.surface.live.label",
+    eyebrowKey: "runTranscriptUxLab.surface.live.eyebrow",
+    descriptionKey: "runTranscriptUxLab.surface.live.description",
     icon: RadioTower,
   },
   {
     id: "dashboard",
-    label: "Dashboard Card",
-    eyebrow: "Dense card",
-    description: "The active-agents dashboard card, tuned for compact scanning while keeping the same transcript language.",
+    labelKey: "runTranscriptUxLab.surface.dashboard.label",
+    eyebrowKey: "runTranscriptUxLab.surface.dashboard.eyebrow",
+    descriptionKey: "runTranscriptUxLab.surface.dashboard.description",
     icon: PanelsTopLeft,
   },
 ];
@@ -59,12 +60,13 @@ function RunDetailPreview({
   streaming: boolean;
   density: TranscriptDensity;
 }) {
+  const { t } = useTranslation();
   return (
     <div className="overflow-hidden rounded-xl border border-border/70 bg-background/80 shadow-[0_24px_60px_rgba(15,23,42,0.08)]">
       <div className="border-b border-border/60 bg-background/90 px-5 py-4">
         <div className="flex flex-wrap items-center gap-2">
           <Badge variant="outline" className="uppercase tracking-[0.18em] text-[10px]">
-            Run Detail
+            {t("runTranscriptUxLab.runDetail")}
           </Badge>
           <StatusBadge status={streaming ? "running" : "succeeded"} />
           <span className="text-xs text-muted-foreground">
@@ -72,7 +74,7 @@ function RunDetailPreview({
           </span>
         </div>
         <div className="mt-2 text-sm font-medium">
-          Transcript ({runTranscriptFixtureEntries.length})
+          {t("runTranscriptUxLab.transcript", { count: runTranscriptFixtureEntries.length })}
         </div>
       </div>
       <div className="max-h-[720px] overflow-y-auto bg-[radial-gradient(circle_at_top_left,rgba(8,145,178,0.08),transparent_36%),radial-gradient(circle_at_bottom_right,rgba(245,158,11,0.10),transparent_28%)] p-5">
@@ -96,14 +98,15 @@ function LiveWidgetPreview({
   mode: TranscriptMode;
   density: TranscriptDensity;
 }) {
+  const { t } = useTranslation();
   return (
     <div className="overflow-hidden rounded-xl border border-cyan-500/25 bg-background/85 shadow-[0_20px_50px_rgba(6,182,212,0.10)]">
       <div className="border-b border-border/60 bg-cyan-500/[0.05] px-5 py-4">
         <div className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-700 dark:text-cyan-300">
-          Live Runs
+          {t("runTranscriptUxLab.liveRuns")}
         </div>
         <div className="mt-1 text-xs text-muted-foreground">
-          Compact live transcript stream for the issue detail page.
+          {t("runTranscriptUxLab.liveRunsDescription")}
         </div>
       </div>
       <div className="px-5 py-4">
@@ -119,7 +122,7 @@ function LiveWidgetPreview({
             </div>
           </div>
           <span className="inline-flex items-center gap-1 rounded-full border border-border/70 bg-background/70 px-2.5 py-1 text-[11px] text-muted-foreground">
-            Open run
+            {t("runTranscriptUxLab.openRun")}
             <ExternalLink className="h-3 w-3" />
           </span>
         </div>
@@ -146,6 +149,7 @@ function DashboardPreview({
   mode: TranscriptMode;
   density: TranscriptDensity;
 }) {
+  const { t } = useTranslation();
   return (
     <div className="max-w-md">
       <div className={cn(
@@ -165,7 +169,7 @@ function DashboardPreview({
                 <Identity name={runTranscriptFixtureMeta.agentName} size="sm" />
               </div>
               <div className="mt-2 text-[11px] text-muted-foreground">
-                {streaming ? "Live now" : "Finished 2m ago"}
+                {streaming ? t("runTranscriptUxLab.liveNow") : t("runTranscriptUxLab.finished")}
               </div>
             </div>
             <span className="rounded-full border border-border/70 bg-background/70 px-2 py-1 text-[10px] text-muted-foreground">
@@ -191,12 +195,19 @@ function DashboardPreview({
 }
 
 export function RunTranscriptUxLab() {
+  const { t } = useTranslation();
   const [selectedSurface, setSelectedSurface] = useState<SurfaceId>("detail");
   const [detailMode, setDetailMode] = useState<TranscriptMode>("nice");
   const [streaming, setStreaming] = useState(true);
   const [density, setDensity] = useState<TranscriptDensity>("comfortable");
 
-  const selected = surfaceOptions.find((option) => option.id === selectedSurface) ?? surfaceOptions[0];
+  const surfaceOptions = surfaceOptionDefs.map((def) => ({
+    ...def,
+    label: t(def.labelKey),
+    eyebrow: t(def.eyebrowKey),
+    description: t(def.descriptionKey),
+  }));
+  const selected = surfaceOptions.find((option) => option.id === selectedSurface) ?? surfaceOptions[0]!
 
   return (
     <div className="space-y-6">
@@ -208,9 +219,9 @@ export function RunTranscriptUxLab() {
                 <FlaskConical className="h-3.5 w-3.5" />
                 UX Lab
               </div>
-              <h1 className="mt-4 text-2xl font-semibold tracking-tight">Run Transcript Fixtures</h1>
+              <h1 className="mt-4 text-2xl font-semibold tracking-tight">{t("runTranscriptUxLab.title")}</h1>
               <p className="mt-2 text-sm text-muted-foreground">
-                Built from a real Paperclip development run, then sanitized so no secrets, local paths, or environment details survive into the fixture.
+                {t("runTranscriptUxLab.description")}
               </p>
             </div>
 
@@ -263,7 +274,7 @@ export function RunTranscriptUxLab() {
 
               <div className="flex flex-wrap items-center gap-2">
                 <Badge variant="outline" className="rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.18em]">
-                  Source run {runTranscriptFixtureMeta.sourceRunId.slice(0, 8)}
+                  {t("runTranscriptUxLab.sourceRun", { id: runTranscriptFixtureMeta.sourceRunId.slice(0, 8) })}
                 </Badge>
                 <Badge variant="outline" className="rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.18em]">
                   {runTranscriptFixtureMeta.issueIdentifier}
@@ -273,7 +284,7 @@ export function RunTranscriptUxLab() {
 
             <div className="mb-5 flex flex-wrap items-center gap-2">
               <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                Controls
+                {t("runTranscriptUxLab.controls")}
               </span>
               <div className="inline-flex rounded-full border border-border/70 bg-background/80 p-1">
                 {(["nice", "raw"] as const).map((mode) => (
@@ -311,7 +322,7 @@ export function RunTranscriptUxLab() {
                 className="rounded-full"
                 onClick={() => setStreaming((value) => !value)}
               >
-                {streaming ? "Show settled state" : "Show streaming state"}
+                {streaming ? t("runTranscriptUxLab.showSettled") : t("runTranscriptUxLab.showStreaming")}
               </Button>
             </div>
 

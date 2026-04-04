@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type ChangeEvent, type DragEvent } from "react";
+import { useTranslation } from "react-i18next";
+import { t as i18nT } from "i18next";
 import { pickTextColorForPillBg } from "@/lib/color-contrast";
 import { Link, useLocation, useNavigate, useParams } from "@/lib/router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -83,30 +85,35 @@ type IssueDetailComment = (IssueComment | OptimisticIssueComment) & {
   queueTargetRunId?: string | null;
 };
 
-const ACTION_LABELS: Record<string, string> = {
-  "issue.created": "created the issue",
-  "issue.updated": "updated the issue",
-  "issue.checked_out": "checked out the issue",
-  "issue.released": "released the issue",
-  "issue.comment_added": "added a comment",
-  "issue.feedback_vote_saved": "saved feedback on an AI output",
-  "issue.attachment_added": "added an attachment",
-  "issue.attachment_removed": "removed an attachment",
-  "issue.document_created": "created a document",
-  "issue.document_updated": "updated a document",
-  "issue.document_deleted": "deleted a document",
-  "issue.deleted": "deleted the issue",
-  "agent.created": "created an agent",
-  "agent.updated": "updated the agent",
-  "agent.paused": "paused the agent",
-  "agent.resumed": "resumed the agent",
-  "agent.terminated": "terminated the agent",
-  "heartbeat.invoked": "invoked a heartbeat",
-  "heartbeat.cancelled": "cancelled a heartbeat",
-  "approval.created": "requested approval",
-  "approval.approved": "approved",
-  "approval.rejected": "rejected",
+const ACTION_LABEL_KEYS: Record<string, string> = {
+  "issue.created": "issueDetail.actions.issueCreated",
+  "issue.updated": "issueDetail.actions.issueUpdated",
+  "issue.checked_out": "issueDetail.actions.issueCheckedOut",
+  "issue.released": "issueDetail.actions.issueReleased",
+  "issue.comment_added": "issueDetail.actions.commentAdded",
+  "issue.feedback_vote_saved": "issueDetail.actions.feedbackVoteSaved",
+  "issue.attachment_added": "issueDetail.actions.attachmentAdded",
+  "issue.attachment_removed": "issueDetail.actions.attachmentRemoved",
+  "issue.document_created": "issueDetail.actions.documentCreated",
+  "issue.document_updated": "issueDetail.actions.documentUpdated",
+  "issue.document_deleted": "issueDetail.actions.documentDeleted",
+  "issue.deleted": "issueDetail.actions.issueDeleted",
+  "agent.created": "issueDetail.actions.agentCreated",
+  "agent.updated": "issueDetail.actions.agentUpdated",
+  "agent.paused": "issueDetail.actions.agentPaused",
+  "agent.resumed": "issueDetail.actions.agentResumed",
+  "agent.terminated": "issueDetail.actions.agentTerminated",
+  "heartbeat.invoked": "issueDetail.actions.heartbeatInvoked",
+  "heartbeat.cancelled": "issueDetail.actions.heartbeatCancelled",
+  "approval.created": "issueDetail.actions.approvalCreated",
+  "approval.approved": "issueDetail.actions.approvalApproved",
+  "approval.rejected": "issueDetail.actions.approvalRejected",
 };
+
+function getActionLabel(action: string): string {
+  const key = ACTION_LABEL_KEYS[action];
+  return key ? i18nT(key) : action.replace(/[._]/g, " ");
+}
 
 const FEEDBACK_TERMS_URL = import.meta.env.VITE_FEEDBACK_TERMS_URL?.trim() || "https://paperclip.ing/tos";
 
@@ -203,9 +210,9 @@ function formatAction(action: string, details?: Record<string, unknown> | null):
   ) {
     const key = typeof details.key === "string" ? details.key : "document";
     const title = typeof details.title === "string" && details.title ? ` (${details.title})` : "";
-    return `${ACTION_LABELS[action] ?? action} ${key}${title}`;
+    return `${getActionLabel(action)} ${key}${title}`;
   }
-  return ACTION_LABELS[action] ?? action.replace(/[._]/g, " ");
+  return getActionLabel(action);
 }
 
 function mergeOptimisticFeedbackVote(
@@ -266,14 +273,15 @@ function mergeOptimisticFeedbackVote(
 }
 
 function ActorIdentity({ evt, agentMap }: { evt: ActivityEvent; agentMap: Map<string, Agent> }) {
+  const { t } = useTranslation();
   const id = evt.actorId;
   if (evt.actorType === "agent") {
     const agent = agentMap.get(id);
     return <Identity name={agent?.name ?? id.slice(0, 8)} size="sm" />;
   }
-  if (evt.actorType === "system") return <Identity name="System" size="sm" />;
-  if (evt.actorType === "user") return <Identity name="Board" size="sm" />;
-  return <Identity name={id || "Unknown"} size="sm" />;
+  if (evt.actorType === "system") return <Identity name={t("issueDetail.system")} size="sm" />;
+  if (evt.actorType === "user") return <Identity name={t("issueDetail.board")} size="sm" />;
+  return <Identity name={id || t("issueDetail.unknown")} size="sm" />;
 }
 
 export function IssueDetail() {

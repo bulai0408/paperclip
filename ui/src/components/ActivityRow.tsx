@@ -3,45 +3,47 @@ import { Identity } from "./Identity";
 import { timeAgo } from "../lib/timeAgo";
 import { cn } from "../lib/utils";
 import { deriveProjectUrlKey, type ActivityEvent, type Agent } from "@paperclipai/shared";
+import { useTranslation } from "react-i18next";
+import type { TFunction } from "i18next";
 
-const ACTION_VERBS: Record<string, string> = {
-  "issue.created": "created",
-  "issue.updated": "updated",
-  "issue.checked_out": "checked out",
-  "issue.released": "released",
-  "issue.comment_added": "commented on",
-  "issue.attachment_added": "attached file to",
-  "issue.attachment_removed": "removed attachment from",
-  "issue.document_created": "created document for",
-  "issue.document_updated": "updated document on",
-  "issue.document_deleted": "deleted document from",
-  "issue.commented": "commented on",
-  "issue.deleted": "deleted",
-  "agent.created": "created",
-  "agent.updated": "updated",
-  "agent.paused": "paused",
-  "agent.resumed": "resumed",
-  "agent.terminated": "terminated",
-  "agent.key_created": "created API key for",
-  "agent.budget_updated": "updated budget for",
-  "agent.runtime_session_reset": "reset session for",
-  "heartbeat.invoked": "invoked heartbeat for",
-  "heartbeat.cancelled": "cancelled heartbeat for",
-  "approval.created": "requested approval",
-  "approval.approved": "approved",
-  "approval.rejected": "rejected",
-  "project.created": "created",
-  "project.updated": "updated",
-  "project.deleted": "deleted",
-  "goal.created": "created",
-  "goal.updated": "updated",
-  "goal.deleted": "deleted",
-  "cost.reported": "reported cost for",
-  "cost.recorded": "recorded cost for",
-  "company.created": "created company",
-  "company.updated": "updated company",
-  "company.archived": "archived",
-  "company.budget_updated": "updated budget for",
+const ACTION_VERB_KEYS: Record<string, string> = {
+  "issue.created": "activityRow.verbs.issueCreated",
+  "issue.updated": "activityRow.verbs.issueUpdated",
+  "issue.checked_out": "activityRow.verbs.issueCheckedOut",
+  "issue.released": "activityRow.verbs.issueReleased",
+  "issue.comment_added": "activityRow.verbs.issueCommentAdded",
+  "issue.attachment_added": "activityRow.verbs.issueAttachmentAdded",
+  "issue.attachment_removed": "activityRow.verbs.issueAttachmentRemoved",
+  "issue.document_created": "activityRow.verbs.issueDocumentCreated",
+  "issue.document_updated": "activityRow.verbs.issueDocumentUpdated",
+  "issue.document_deleted": "activityRow.verbs.issueDocumentDeleted",
+  "issue.commented": "activityRow.verbs.issueCommented",
+  "issue.deleted": "activityRow.verbs.issueDeleted",
+  "agent.created": "activityRow.verbs.agentCreated",
+  "agent.updated": "activityRow.verbs.agentUpdated",
+  "agent.paused": "activityRow.verbs.agentPaused",
+  "agent.resumed": "activityRow.verbs.agentResumed",
+  "agent.terminated": "activityRow.verbs.agentTerminated",
+  "agent.key_created": "activityRow.verbs.agentKeyCreated",
+  "agent.budget_updated": "activityRow.verbs.agentBudgetUpdated",
+  "agent.runtime_session_reset": "activityRow.verbs.agentRuntimeSessionReset",
+  "heartbeat.invoked": "activityRow.verbs.heartbeatInvoked",
+  "heartbeat.cancelled": "activityRow.verbs.heartbeatCancelled",
+  "approval.created": "activityRow.verbs.approvalCreated",
+  "approval.approved": "activityRow.verbs.approvalApproved",
+  "approval.rejected": "activityRow.verbs.approvalRejected",
+  "project.created": "activityRow.verbs.projectCreated",
+  "project.updated": "activityRow.verbs.projectUpdated",
+  "project.deleted": "activityRow.verbs.projectDeleted",
+  "goal.created": "activityRow.verbs.goalCreated",
+  "goal.updated": "activityRow.verbs.goalUpdated",
+  "goal.deleted": "activityRow.verbs.goalDeleted",
+  "cost.reported": "activityRow.verbs.costReported",
+  "cost.recorded": "activityRow.verbs.costRecorded",
+  "company.created": "activityRow.verbs.companyCreated",
+  "company.updated": "activityRow.verbs.companyUpdated",
+  "company.archived": "activityRow.verbs.companyArchived",
+  "company.budget_updated": "activityRow.verbs.companyBudgetUpdated",
 };
 
 function humanizeValue(value: unknown): string {
@@ -49,23 +51,24 @@ function humanizeValue(value: unknown): string {
   return value.replace(/_/g, " ");
 }
 
-function formatVerb(action: string, details?: Record<string, unknown> | null): string {
+function formatVerb(action: string, details: Record<string, unknown> | null | undefined, t: TFunction): string {
   if (action === "issue.updated" && details) {
     const previous = (details._previous ?? {}) as Record<string, unknown>;
     if (details.status !== undefined) {
       const from = previous.status;
       return from
-        ? `changed status from ${humanizeValue(from)} to ${humanizeValue(details.status)} on`
-        : `changed status to ${humanizeValue(details.status)} on`;
+        ? t("activityRow.changedStatusFromTo", { from: humanizeValue(from), to: humanizeValue(details.status) })
+        : t("activityRow.changedStatusTo", { to: humanizeValue(details.status) });
     }
     if (details.priority !== undefined) {
       const from = previous.priority;
       return from
-        ? `changed priority from ${humanizeValue(from)} to ${humanizeValue(details.priority)} on`
-        : `changed priority to ${humanizeValue(details.priority)} on`;
+        ? t("activityRow.changedPriorityFromTo", { from: humanizeValue(from), to: humanizeValue(details.priority) })
+        : t("activityRow.changedPriorityTo", { to: humanizeValue(details.priority) });
     }
   }
-  return ACTION_VERBS[action] ?? action.replace(/[._]/g, " ");
+  const key = ACTION_VERB_KEYS[action];
+  return key ? t(key) : action.replace(/[._]/g, " ");
 }
 
 function entityLink(entityType: string, entityId: string, name?: string | null): string | null {
@@ -88,7 +91,8 @@ interface ActivityRowProps {
 }
 
 export function ActivityRow({ event, agentMap, entityNameMap, entityTitleMap, className }: ActivityRowProps) {
-  const verb = formatVerb(event.action, event.details);
+  const { t } = useTranslation();
+  const verb = formatVerb(event.action, event.details, t);
 
   const isHeartbeatEvent = event.entityType === "heartbeat_run";
   const heartbeatAgentId = isHeartbeatEvent
@@ -106,7 +110,7 @@ export function ActivityRow({ event, agentMap, entityNameMap, entityTitleMap, cl
     : entityLink(event.entityType, event.entityId, name);
 
   const actor = event.actorType === "agent" ? agentMap.get(event.actorId) : null;
-  const actorName = actor?.name ?? (event.actorType === "system" ? "System" : event.actorType === "user" ? "Board" : event.actorId || "Unknown");
+  const actorName = actor?.name ?? (event.actorType === "system" ? t("activityRow.system") : event.actorType === "user" ? t("activityRow.board") : event.actorId || t("activityRow.unknown"));
 
   const inner = (
     <div className="flex gap-3">

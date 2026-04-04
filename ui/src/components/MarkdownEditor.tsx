@@ -8,6 +8,7 @@ import {
   useState,
   type DragEvent,
 } from "react";
+import { useTranslation } from "react-i18next";
 import { createPortal } from "react-dom";
 import {
   CodeMirrorEditor,
@@ -91,24 +92,24 @@ interface MentionState {
   endPos: number;
 }
 
-const CODE_BLOCK_LANGUAGES: Record<string, string> = {
-  txt: "Text",
-  md: "Markdown",
-  js: "JavaScript",
-  jsx: "JavaScript (JSX)",
-  ts: "TypeScript",
-  tsx: "TypeScript (TSX)",
-  json: "JSON",
-  bash: "Bash",
-  sh: "Shell",
-  python: "Python",
-  go: "Go",
-  rust: "Rust",
-  sql: "SQL",
-  html: "HTML",
-  css: "CSS",
-  yaml: "YAML",
-  yml: "YAML",
+const CODE_BLOCK_LANGUAGE_KEYS: Record<string, string> = {
+  txt: "markdownEditor.lang.txt",
+  md: "markdownEditor.lang.md",
+  js: "markdownEditor.lang.js",
+  jsx: "markdownEditor.lang.jsx",
+  ts: "markdownEditor.lang.ts",
+  tsx: "markdownEditor.lang.tsx",
+  json: "markdownEditor.lang.json",
+  bash: "markdownEditor.lang.bash",
+  sh: "markdownEditor.lang.sh",
+  python: "markdownEditor.lang.python",
+  go: "markdownEditor.lang.go",
+  rust: "markdownEditor.lang.rust",
+  sql: "markdownEditor.lang.sql",
+  html: "markdownEditor.lang.html",
+  css: "markdownEditor.lang.css",
+  yaml: "markdownEditor.lang.yaml",
+  yml: "markdownEditor.lang.yml",
 };
 
 const FALLBACK_CODE_BLOCK_DESCRIPTOR: CodeBlockEditorDescriptor = {
@@ -198,6 +199,7 @@ export const MarkdownEditor = forwardRef<MarkdownEditorRef, MarkdownEditorProps>
   mentions,
   onSubmit,
 }: MarkdownEditorProps, forwardedRef) {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
   const editorRef = useRef<MDXEditorMethods | null>(null);
   const latestValueRef = useRef(value);
@@ -247,6 +249,11 @@ export const MarkdownEditor = forwardRef<MarkdownEditorRef, MarkdownEditorProps>
   // as long as the handler presence doesn't toggle)
   const hasImageUpload = Boolean(imageUploadHandler);
 
+  const codeBlockLanguages = useMemo<Record<string, string>>(
+    () => Object.fromEntries(Object.entries(CODE_BLOCK_LANGUAGE_KEYS).map(([k, key]) => [k, t(key)])),
+    [t],
+  );
+
   const plugins = useMemo<RealmPlugin[]>(() => {
     const imageHandler = hasImageUpload
       ? async (file: File) => {
@@ -275,7 +282,7 @@ export const MarkdownEditor = forwardRef<MarkdownEditorRef, MarkdownEditorProps>
             }, 100);
             return src;
           } catch (err) {
-            const message = err instanceof Error ? err.message : "Image upload failed";
+            const message = err instanceof Error ? err.message : t("markdownEditor.imageUploadFailed");
             setUploadError(message);
             throw err;
           }
@@ -294,14 +301,14 @@ export const MarkdownEditor = forwardRef<MarkdownEditorRef, MarkdownEditorProps>
         defaultCodeBlockLanguage: "txt",
         codeBlockEditorDescriptors: [FALLBACK_CODE_BLOCK_DESCRIPTOR],
       }),
-      codeMirrorPlugin({ codeBlockLanguages: CODE_BLOCK_LANGUAGES }),
+      codeMirrorPlugin({ codeBlockLanguages }),
       markdownShortcutPlugin(),
     ];
     if (imageHandler) {
       all.push(imagePlugin({ imageUploadHandler: imageHandler }));
     }
     return all;
-  }, [hasImageUpload]);
+  }, [hasImageUpload, codeBlockLanguages, t]);
 
   const handleEditorRef = useCallback((instance: MDXEditorMethods | null) => {
     editorRef.current = instance;
@@ -642,7 +649,7 @@ export const MarkdownEditor = forwardRef<MarkdownEditorRef, MarkdownEditorProps>
                 <span>{option.name}</span>
                 {option.kind === "project" && option.projectId && (
                   <span className="ml-auto text-[10px] uppercase tracking-wide text-muted-foreground">
-                    Project
+                    {t("markdownEditor.projectLabel")}
                   </span>
                 )}
               </button>

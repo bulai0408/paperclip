@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { t as i18nT } from "i18next";
 import { cn } from "../lib/utils";
 import {
   ChevronDown,
@@ -149,20 +150,30 @@ export function parseFrontmatter(content: string): { data: FrontmatterData; body
   return Object.keys(data).length > 0 ? { data, body } : null;
 }
 
-export const FRONTMATTER_FIELD_LABELS: Record<string, string> = {
-  name: "Name",
-  title: "Title",
-  kind: "Kind",
-  reportsTo: "Reports to",
-  skills: "Skills",
-  status: "Status",
-  description: "Description",
-  priority: "Priority",
-  assignee: "Assignee",
-  project: "Project",
-  recurring: "Recurring",
-  targetDate: "Target date",
+export const FRONTMATTER_FIELD_LABEL_KEYS: Record<string, string> = {
+  name: "packageFileTree.fields.name",
+  title: "packageFileTree.fields.title",
+  kind: "packageFileTree.fields.kind",
+  reportsTo: "packageFileTree.fields.reportsTo",
+  skills: "packageFileTree.fields.skills",
+  status: "packageFileTree.fields.status",
+  description: "packageFileTree.fields.description",
+  priority: "packageFileTree.fields.priority",
+  assignee: "packageFileTree.fields.assignee",
+  project: "packageFileTree.fields.project",
+  recurring: "packageFileTree.fields.recurring",
+  targetDate: "packageFileTree.fields.targetDate",
 };
+
+/** Returns translated frontmatter field labels. Call at render time (not module level). */
+export function getFrontmatterFieldLabels(): Record<string, string> {
+  return Object.fromEntries(
+    Object.entries(FRONTMATTER_FIELD_LABEL_KEYS).map(([k, key]) => [k, i18nT(key)]),
+  );
+}
+
+/** @deprecated Use getFrontmatterFieldLabels() for translated labels. */
+export const FRONTMATTER_FIELD_LABELS: Record<string, string> = FRONTMATTER_FIELD_LABEL_KEYS;
 
 // ── File tree component ───────────────────────────────────────────────
 

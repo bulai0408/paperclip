@@ -381,7 +381,7 @@ export function ExecutionWorkspaceDetail() {
           <Button variant="ghost" size="sm" asChild>
             <Link to={project ? `/projects/${projectRef}/workspaces` : "/projects"}>
               <ArrowLeft className="mr-1 h-4 w-4" />
-              Back to all workspaces
+              {t("workspace.backToAllWorkspaces")}
             </Link>
           </Button>
           <StatusPill>{workspace.mode}</StatusPill>
@@ -397,13 +397,11 @@ export function ExecutionWorkspaceDetail() {
               <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between">
                 <div className="space-y-2">
                   <div className="text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">
-                    Execution workspace
+                    {t("workspace.executionWorkspace")}
                   </div>
                   <h1 className="text-2xl font-semibold">{workspace.name}</h1>
                   <p className="max-w-2xl text-sm text-muted-foreground">
-                    Configure the concrete runtime workspace that Paperclip reuses for this issue flow. These settings stay
-                    attached to the execution workspace so future runs can keep local paths, repo refs, provisioning, teardown,
-                    and runtime-service behavior in sync with the actual workspace being reused.
+                    {t("workspace.executionWorkspaceDesc")}
                   </p>
                 </div>
                 <div className="flex w-full shrink-0 items-center gap-2 sm:w-auto">
@@ -426,7 +424,7 @@ export function ExecutionWorkspaceDetail() {
                     className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none"
                     value={form.name}
                     onChange={(event) => setForm((current) => current ? { ...current, name: event.target.value } : current)}
-                    placeholder="Execution workspace name"
+                    placeholder={t("workspace.executionWorkspaceNamePlaceholder")}
                   />
                 </Field>
                 <Field label="Branch name" hint="Useful for isolated worktrees">
@@ -548,7 +546,7 @@ export function ExecutionWorkspaceDetail() {
                         setForm((current) => current ? { ...current, inheritRuntime: event.target.checked } : current)
                       }
                     />
-                    <label htmlFor="inherit-runtime-config">Inherit project workspace runtime config</label>
+                    <label htmlFor="inherit-runtime-config">{t("workspace.inheritProjectWorkspaceRuntimeConfig")}</label>
                   </div>
                   <textarea
                     className="min-h-48 w-full rounded-lg border border-border bg-background px-3 py-2 font-mono text-sm outline-none disabled:cursor-not-allowed disabled:opacity-60"
@@ -587,8 +585,8 @@ export function ExecutionWorkspaceDetail() {
           <div className="space-y-6">
             <div className="rounded-2xl border border-border bg-card p-5">
               <div className="space-y-1">
-                <div className="text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">Linked objects</div>
-                <h2 className="text-lg font-semibold">Workspace context</h2>
+                <div className="text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">{t("workspace.linkedObjects")}</div>
+                <h2 className="text-lg font-semibold">{t("workspace.workspaceContext")}</h2>
               </div>
               <Separator className="my-4" />
               <DetailRow label="Project">
@@ -632,8 +630,8 @@ export function ExecutionWorkspaceDetail() {
 
             <div className="rounded-2xl border border-border bg-card p-5">
               <div className="space-y-1">
-                <div className="text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">Paths and refs</div>
-                <h2 className="text-lg font-semibold">Concrete location</h2>
+                <div className="text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">{t("workspace.pathsAndRefs")}</div>
+                <h2 className="text-lg font-semibold">{t("workspace.concreteLocation")}</h2>
               </div>
               <Separator className="my-4" />
               <DetailRow label="Working dir">
@@ -677,8 +675,8 @@ export function ExecutionWorkspaceDetail() {
             <div className="rounded-2xl border border-border bg-card p-5">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                 <div className="space-y-1">
-                  <div className="text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">Runtime services</div>
-                  <h2 className="text-lg font-semibold">Attached services</h2>
+                  <div className="text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">{t("workspace.runtimeServices")}</div>
+                  <h2 className="text-lg font-semibold">{t("workspace.attachedServices")}</h2>
                   <p className="text-sm text-muted-foreground">
                     Source: {runtimeConfigSource === "execution_workspace"
                       ? "execution workspace override"
@@ -755,8 +753,8 @@ export function ExecutionWorkspaceDetail() {
 
             <div className="rounded-2xl border border-border bg-card p-5">
               <div className="space-y-1">
-                <div className="text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">Recent operations</div>
-                <h2 className="text-lg font-semibold">Runtime and cleanup logs</h2>
+                <div className="text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">{t("workspace.recentOperations")}</div>
+                <h2 className="text-lg font-semibold">{t("workspace.runtimeAndCleanupLogs")}</h2>
               </div>
               <Separator className="my-4" />
               {workspaceOperationsQuery.isLoading ? (
@@ -799,10 +797,10 @@ export function ExecutionWorkspaceDetail() {
         <div className="rounded-2xl border border-border bg-card p-5">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div className="space-y-1">
-              <div className="text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">Linked issues</div>
-              <h2 className="text-lg font-semibold">Issues using this workspace</h2>
+              <div className="text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">{t("workspace.linkedIssues")}</div>
+              <h2 className="text-lg font-semibold">{t("workspace.issuesUsingThisWorkspace")}</h2>
               <p className="text-sm text-muted-foreground">
-                Any issue attached to this execution workspace appears here so you can review the full session context before reusing or closing it.
+                {t("workspace.linkedIssuesDesc")}
               </p>
             </div>
             <StatusPill>{linkedIssues.length} linked</StatusPill>

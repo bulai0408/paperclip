@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AGENT_ADAPTER_TYPES } from "@paperclipai/shared";
 import type {
@@ -135,41 +136,42 @@ function formatArgList(value: unknown): string {
 }
 
 const codexThinkingEffortOptions = [
-  { id: "", label: "Auto" },
-  { id: "minimal", label: "Minimal" },
-  { id: "low", label: "Low" },
-  { id: "medium", label: "Medium" },
-  { id: "high", label: "High" },
-  { id: "xhigh", label: "X-High" },
+  { id: "", labelKey: "agentConfig.thinkingEffort.auto" },
+  { id: "minimal", labelKey: "agentConfig.thinkingEffort.minimal" },
+  { id: "low", labelKey: "agentConfig.thinkingEffort.low" },
+  { id: "medium", labelKey: "agentConfig.thinkingEffort.medium" },
+  { id: "high", labelKey: "agentConfig.thinkingEffort.high" },
+  { id: "xhigh", labelKey: "agentConfig.thinkingEffort.xhigh" },
 ] as const;
 
 const openCodeThinkingEffortOptions = [
-  { id: "", label: "Auto" },
-  { id: "minimal", label: "Minimal" },
-  { id: "low", label: "Low" },
-  { id: "medium", label: "Medium" },
-  { id: "high", label: "High" },
-  { id: "xhigh", label: "X-High" },
-  { id: "max", label: "Max" },
+  { id: "", labelKey: "agentConfig.thinkingEffort.auto" },
+  { id: "minimal", labelKey: "agentConfig.thinkingEffort.minimal" },
+  { id: "low", labelKey: "agentConfig.thinkingEffort.low" },
+  { id: "medium", labelKey: "agentConfig.thinkingEffort.medium" },
+  { id: "high", labelKey: "agentConfig.thinkingEffort.high" },
+  { id: "xhigh", labelKey: "agentConfig.thinkingEffort.xhigh" },
+  { id: "max", labelKey: "agentConfig.thinkingEffort.max" },
 ] as const;
 
 const cursorModeOptions = [
-  { id: "", label: "Auto" },
-  { id: "plan", label: "Plan" },
-  { id: "ask", label: "Ask" },
+  { id: "", labelKey: "agentConfig.thinkingEffort.auto" },
+  { id: "plan", labelKey: "agentConfig.thinkingEffort.plan" },
+  { id: "ask", labelKey: "agentConfig.thinkingEffort.ask" },
 ] as const;
 
 const claudeThinkingEffortOptions = [
-  { id: "", label: "Auto" },
-  { id: "low", label: "Low" },
-  { id: "medium", label: "Medium" },
-  { id: "high", label: "High" },
+  { id: "", labelKey: "agentConfig.thinkingEffort.auto" },
+  { id: "low", labelKey: "agentConfig.thinkingEffort.low" },
+  { id: "medium", labelKey: "agentConfig.thinkingEffort.medium" },
+  { id: "high", labelKey: "agentConfig.thinkingEffort.high" },
 ] as const;
 
 
 /* ---- Form ---- */
 
 export function AgentConfigForm(props: AgentConfigFormProps) {
+  const { t } = useTranslation();
   const { mode, adapterModels: externalModels } = props;
   const isCreate = mode === "create";
   const cards = props.sectionLayout === "cards";
@@ -199,7 +201,7 @@ export function AgentConfigForm(props: AgentConfigFormProps) {
 
   const uploadMarkdownImage = useMutation({
     mutationFn: async ({ file, namespace }: { file: File; namespace: string }) => {
-      if (!selectedCompanyId) throw new Error("Select a company to upload images");
+      if (!selectedCompanyId) throw new Error(t("agentConfig.selectCompanyToUploadImages"));
       return assetsApi.uploadImage(selectedCompanyId, file, namespace);
     },
   });
@@ -417,7 +419,7 @@ export function AgentConfigForm(props: AgentConfigFormProps) {
         : adapterType === "opencode_local"
           ? "variant"
           : "effort";
-  const thinkingEffortOptions =
+  const rawThinkingEffortOptions =
     adapterType === "codex_local"
       ? codexThinkingEffortOptions
       : adapterType === "cursor"
@@ -425,6 +427,7 @@ export function AgentConfigForm(props: AgentConfigFormProps) {
         : adapterType === "opencode_local"
           ? openCodeThinkingEffortOptions
           : claudeThinkingEffortOptions;
+  const thinkingEffortOptions = rawThinkingEffortOptions.map((o) => ({ id: o.id, label: t(o.labelKey) }));
   const currentThinkingEffort = isCreate
     ? val!.thinkingEffort
     : adapterType === "codex_local"
@@ -468,13 +471,13 @@ export function AgentConfigForm(props: AgentConfigFormProps) {
       {isDirty && !props.hideInlineSave && (
         <div className="sticky top-0 z-10 flex items-center justify-end px-4 py-2 bg-background/90 backdrop-blur-sm border-b border-primary/20">
           <div className="flex items-center gap-3">
-            <span className="text-xs text-muted-foreground">Unsaved changes</span>
+            <span className="text-xs text-muted-foreground">{t("agentConfig.unsavedChanges")}</span>
             <Button
               size="sm"
               onClick={handleSave}
               disabled={!isCreate && props.isSaving}
             >
-              {!isCreate && props.isSaving ? "Saving..." : "Save"}
+              {!isCreate && props.isSaving ? t("agentConfig.saving") : "Save"}
             </Button>
           </div>
         </div>
@@ -484,8 +487,8 @@ export function AgentConfigForm(props: AgentConfigFormProps) {
       {!isCreate && (
         <div className={cn(!cards && "border-b border-border")}>
           {cards
-            ? <h3 className="text-sm font-medium mb-3">Identity</h3>
-            : <div className="px-4 py-2 text-xs font-medium text-muted-foreground">Identity</div>
+            ? <h3 className="text-sm font-medium mb-3">{t("agentConfig.identity")}</h3>
+            : <div className="px-4 py-2 text-xs font-medium text-muted-foreground">{t("agentConfig.identity")}</div>
           }
           <div className={cn(cards ? "border border-border rounded-lg p-4 space-y-3" : "px-4 pb-3 space-y-3")}>
             <Field label="Name" hint={help.name}>
@@ -494,7 +497,7 @@ export function AgentConfigForm(props: AgentConfigFormProps) {
                 onCommit={(v) => mark("identity", "name", v)}
                 immediate
                 className={inputClass}
-                placeholder="Agent name"
+                placeholder={t("agentConfig.agentNamePlaceholder")}
               />
             </Field>
             <Field label="Title" hint={help.title}>
@@ -1613,6 +1616,7 @@ function ThinkingEffortDropdown({
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }) {
+  const { t } = useTranslation();
   const selected = options.find((option) => option.id === value) ?? options[0];
 
   return (
@@ -1620,7 +1624,7 @@ function ThinkingEffortDropdown({
       <Popover open={open} onOpenChange={onOpenChange}>
         <PopoverTrigger asChild>
           <button className="inline-flex items-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 text-sm hover:bg-accent/50 transition-colors w-full justify-between">
-            <span className={cn(!value && "text-muted-foreground")}>{selected?.label ?? "Auto"}</span>
+            <span className={cn(!value && "text-muted-foreground")}>{selected?.label ?? t("agentConfig.thinkingEffort.auto")}</span>
             <ChevronDown className="h-3 w-3 text-muted-foreground" />
           </button>
         </PopoverTrigger>
