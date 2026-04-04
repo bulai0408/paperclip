@@ -89,7 +89,8 @@
     "openSidebar": "Open sidebar",
     "closeSidebar": "Close sidebar",
     "skipToMainContent": "Skip to Main Content",
-    "instanceSettings": "Instance settings"
+    "instanceSettings": "Instance settings",
+    "mobileNavigation": "Mobile navigation"
   },
   "mobileNav": {
     "home": "Home",
@@ -207,7 +208,8 @@
       "hire_agent": "Hire Agent",
       "ceo_strategy": "CEO Strategy",
       "budget_override": "Budget Override"
-    }
+    },
+    "selectCompanyFirst": "Select a company first."
   },
   "costs": {
     "title": "Costs",
@@ -329,7 +331,27 @@
     "mine": "Mine",
     "recent": "Recent",
     "unread": "Unread",
-    "selectCompanyMessage": "Select a company to view inbox"
+    "selectCompanyMessage": "Select a company to view inbox",
+    "runExitedWithError": "Run exited with an error.",
+    "noProject": "No project",
+    "failedRun": "Failed run",
+    "retry": "Retry",
+    "retrying": "Retrying…",
+    "humanJoinRequest": "Human join request",
+    "agentJoinRequest": "Agent join request",
+    "agentJoinRequestNamed": "Agent join request: {{name}}",
+    "requestedFromIp": "requested {{time}} from IP {{ip}}",
+    "failedToApprove": "Failed to approve",
+    "failedToReject": "Failed to reject",
+    "failedToApproveJoinRequest": "Failed to approve join request",
+    "failedToRejectJoinRequest": "Failed to reject join request",
+    "retrySkipped": "Retry was skipped.",
+    "noSearchMatches": "No inbox items match your search.",
+    "inboxZero": "Inbox zero.",
+    "noNewItems": "No new inbox items.",
+    "noRecentItems": "No recent inbox items.",
+    "noFilterMatches": "No inbox items match these filters.",
+    "budgetUtilizationThisMonth": "Budget at {{percent}}% utilization this month"
   },
   "orgChart": {
     "title": "Org Chart",
@@ -641,6 +663,7 @@
     "saveChanges": "Save changes",
     "reset": "Reset",
     "noUnsavedChanges": "No unsaved changes.",
+    "noCommandRecorded": "No command recorded",
     "none": "None",
     "project": "Project",
     "source": "Source",
@@ -664,6 +687,7 @@
     "linkedCount": "{{count}} linked",
     "loadingWorkspace": "Loading workspace…",
     "failedToLoadWorkspace": "Failed to load workspace",
+    "notFoundForProject": "Workspace not found for this project.",
     "loadingWorkspaceOperations": "Loading workspace operations…",
     "failedToLoadWorkspaceOperations": "Failed to load workspace operations.",
     "noWorkspaceOperations": "No workspace operations have been recorded yet.",
@@ -708,7 +732,20 @@
     "saveBeforeViewingRevision": "Save or cancel your local changes before viewing an older revision.",
     "hideRemote": "Hide remote",
     "reviewRemote": "Review remote",
-    "outOfDate": "Out of date"
+    "outOfDate": "Out of date",
+    "failedToDelete": "Failed to delete document",
+    "failedToRestoreRevision": "Failed to restore document revision",
+    "failedToSave": "Failed to save document",
+    "changedWhileEditing": "This document changed while you were editing. Your local draft is preserved and autosave is paused.",
+    "keepMyDraft": "Keep my draft",
+    "reloadRemote": "Reload remote",
+    "overwriteRemote": "Overwrite remote",
+    "remoteRevision": "Remote revision {{number}}",
+    "updated": "updated {{time}}",
+    "autosaving": "Autosaving...",
+    "viewingHistoricalRevision": "Viewing historical revision",
+    "couldNotSave": "Could not save",
+    "deleteConfirm": "Delete this document? This cannot be undone."
   },
   "billing": {
     "periodSpend": "Period spend",
@@ -762,7 +799,16 @@
     "chooseValue": "Choose a value",
     "missing": "Missing: ",
     "chooseWorkspace": "Choose an existing workspace before running.",
-    "for": "For"
+    "for": "For",
+    "unknown": "Unknown",
+    "failedToLoad": "Failed to load routines",
+    "policy": {
+      "coalesceIfActive": "If a run is already active, keep just one follow-up run queued.",
+      "alwaysEnqueue": "Queue every trigger occurrence, even if the routine is already running.",
+      "skipIfActive": "Drop new trigger occurrences while a run is still active.",
+      "skipMissed": "Ignore windows that were missed while the scheduler or routine was paused.",
+      "enqueueMissedWithCap": "Catch up missed schedule windows in capped batches after recovery."
+    }
   },
   "onboarding": {
     "steps": {
@@ -829,7 +875,31 @@
     "createCompanyBeforeTest": "Create or select a company before testing adapter environment.",
     "hint": "Hint: ",
     "claudeLogin": "claude login",
-    "creating": "Creating..."
+    "creating": "Creating...",
+    "respondWithHello": "Respond with hello.",
+    "retrying": "Retrying...",
+    "unsetAnthropicApiKey": "Unset ANTHROPIC_API_KEY",
+    "claudeFailedWhileApiKeySet": "Claude failed while ANTHROPIC_API_KEY is set. You can clear it in this CEO adapter config and retry the probe.",
+    "ifAuthFailsSet": "If auth fails, set",
+    "inEnvOrRun": "in env or run",
+    "ifLoginRequired": "If login is required, run",
+    "andRetry": "and retry.",
+    "adapters": {
+      "claudeCode": "Claude Code",
+      "codex": "Codex",
+      "geminiCli": "Gemini CLI",
+      "openCode": "OpenCode",
+      "pi": "Pi",
+      "cursor": "Cursor",
+      "hermesAgent": "Hermes Agent",
+      "openClawGateway": "OpenClaw Gateway"
+    },
+    "envResult": {
+      "passed": "Passed",
+      "warnings": "Warnings",
+      "failed": "Failed",
+      "hint": "Hint:"
+    }
   },
   "auth": {
     "signIn": "Sign in to Paperclip",
@@ -861,7 +931,13 @@
       "dontAllow": "Don't allow",
       "dontAllowDescription": "Keep voted AI outputs local only.",
       "noDefaultSaved": "No default is saved yet. The next thumbs up or thumbs down choice will ask once and then save the answer here.",
-      "termsOfService": "Read our terms of service"
+      "termsOfService": "Read our terms of service",
+      "loading": "Loading general settings...",
+      "loadFailed": "Failed to load general settings.",
+      "updateFailed": "Failed to update general settings.",
+      "toggleCensorUsername": "Toggle username log censoring",
+      "toggleKeyboardShortcuts": "Toggle keyboard shortcuts",
+      "devResetHint": "To retest the first-use prompt in local dev, remove the feedbackDataSharingPreference key from the instance_settings.general JSON row for this instance, or set it back to \"prompt\". Unset and \"prompt\" both mean no default has been chosen yet."
     },
     "heartbeats": {
       "title": "Scheduler Heartbeats",
@@ -946,7 +1022,11 @@
     "deleteRepoConfirm": "Delete this workspace repo?",
     "clearRepo": "Clear repo",
     "noUrl": "No URL",
-    "worktreeCommandsDesc": "Commands for worktree management"
+    "worktreeCommandsDesc": "Commands for worktree management",
+    "goals": "Goals",
+    "created": "Created",
+    "updated": "Updated",
+    "targetDate": "Target Date"
   },
   "dateRange": {
     "monthToDate": "Month to Date",
@@ -1550,7 +1630,21 @@
     "valuePlaceholder": "Value",
     "wakeOnDemand": "Wake on Demand",
     "warnings": "Warnings",
-    "workingDirectoryDeprecated": "Working directory (deprecated)"
+    "workingDirectoryDeprecated": "Working directory (deprecated)",
+    "model": "Model",
+    "modelDefault": "Default",
+    "selectModel": "Select model",
+    "selectModelRequired": "Select model (required)",
+    "searchModels": "Search models...",
+    "searchModelsCreatable": "Search models... (type to create)",
+    "detecting": "Detecting...",
+    "detectFromConfig": "Detect from config",
+    "current": "current",
+    "detected": "detected",
+    "useManualModel": "Use manual model",
+    "noHermesModelDetected": "No Hermes model detected yet. Configure Hermes or enter a provider/model manually.",
+    "noModelsFound": "No models found.",
+    "thinkingEffortLabel": "Thinking effort"
   },
   "worktreeBanner": {
     "label": "Worktree"
@@ -1946,7 +2040,7 @@
   "approvalDetail": {
     "approvalsBreadcrumb": "Approvals",
     "loadingError": "Failed to load approval",
-    "notFound": "Approval not found",
+    "notFound": "Approval not found.",
     "reviewLinkedIssues": "Review linked issues",
     "reviewLinkedIssue": "Review linked issue",
     "openHiredAgent": "Open hired agent",
@@ -1979,7 +2073,10 @@
       "rejectFailed": "Failed to reject",
       "resubmitFailed": "Failed to resubmit",
       "revisionFailed": "Failed to request revision"
-    }
+    },
+    "decisionNote": "Decision note:",
+    "linkedIssuesNote": "Linked issues remain open until the requesting agent follows up and closes them.",
+    "resolveBudgetStop": "Resolve this budget stop from the budget controls on"
   },
   "boardClaim": {
     "invalidUrl": "Invalid board claim URL.",
@@ -2324,7 +2421,10 @@
     "upload": "Upload",
     "uploadAttachment": "Upload Attachment",
     "uploadFailed": "Upload failed",
-    "uploading": "Uploading..."
+    "uploading": "Uploading...",
+    "copyAsMarkdown": "Copy issue as markdown",
+    "showProperties": "Show properties",
+    "deleteAttachment": "Delete attachment"
   },
   "myIssues": {
     "title": "My Issues",
@@ -2671,7 +2771,8 @@
     "claudeOptions": "Claude options",
     "codexOptions": "Codex options",
     "opencodeOptions": "OpenCode options",
-    "agentOptions": "Agent options"
+    "agentOptions": "Agent options",
+    "failedToCreateTryAgain": "Failed to create issue. Try again."
   },
   "instanceExperimental": {
     "autoRestartDescription": "Automatically restart agents after failures.",
@@ -2700,5 +2801,36 @@
     "metric": "Metric",
     "limit": "Limit",
     "observed": "Observed"
+  },
+  "ui": {
+    "close": "Close",
+    "more": "More"
+  },
+  "sidebar": {
+    "projectPausedByBudget": "Project paused by budget"
+  },
+  "issueWorkspace": {
+    "repo": "Repo:"
+  },
+  "companySkills": {
+    "selectFileToInspect": "Select a file to inspect.",
+    "browseSkillsSh": "Browse skills.sh",
+    "findInstallCommands": "Find install commands and paste one here.",
+    "lookForRepos": "Look for repositories with `SKILL.md`, then paste the repo URL here.",
+    "available": "{{count}} available",
+    "creating": "Creating...",
+    "createSkill": "Create skill",
+    "stopEditing": "Stop editing",
+    "source": {
+      "skillsShManaged": "skills.sh managed",
+      "gitHubManaged": "GitHub managed",
+      "urlManaged": "URL managed",
+      "folder": "Folder",
+      "folderManaged": "Folder managed",
+      "paperclipManaged": "Paperclip managed",
+      "catalog": "Catalog",
+      "catalogManaged": "Catalog managed"
+    },
+    "noSkillsMatch": "No skills match this filter."
   }
 }

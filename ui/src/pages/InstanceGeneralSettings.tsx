@@ -35,12 +35,12 @@ export function InstanceGeneralSettings() {
       await queryClient.invalidateQueries({ queryKey: queryKeys.instance.generalSettings });
     },
     onError: (error) => {
-      setActionError(error instanceof Error ? error.message : "Failed to update general settings.");
+      setActionError(error instanceof Error ? error.message : t("instanceSettings.general.updateFailed"));
     },
   });
 
   if (generalQuery.isLoading) {
-    return <div className="text-sm text-muted-foreground">Loading general settings...</div>;
+    return <div className="text-sm text-muted-foreground">{t("instanceSettings.general.loading")}</div>;
   }
 
   if (generalQuery.error) {
@@ -48,7 +48,7 @@ export function InstanceGeneralSettings() {
       <div className="text-sm text-destructive">
         {generalQuery.error instanceof Error
           ? generalQuery.error.message
-          : "Failed to load general settings."}
+          : t("instanceSettings.general.loadFailed")}
       </div>
     );
   }
@@ -86,7 +86,7 @@ export function InstanceGeneralSettings() {
           <button
             type="button"
             data-slot="toggle"
-            aria-label="Toggle username log censoring"
+            aria-label={t("instanceSettings.general.toggleCensorUsername")}
             disabled={updateGeneralMutation.isPending}
             className={cn(
               "relative inline-flex h-5 w-9 items-center rounded-full transition-colors disabled:cursor-not-allowed disabled:opacity-60",
@@ -119,7 +119,7 @@ export function InstanceGeneralSettings() {
           <button
             type="button"
             data-slot="toggle"
-            aria-label="Toggle keyboard shortcuts"
+            aria-label={t("instanceSettings.general.toggleKeyboardShortcuts")}
             disabled={updateGeneralMutation.isPending}
             className={cn(
               "relative inline-flex h-5 w-9 items-center rounded-full transition-colors disabled:cursor-not-allowed disabled:opacity-60",
@@ -202,11 +202,7 @@ export function InstanceGeneralSettings() {
             })}
           </div>
           <p className="text-xs text-muted-foreground">
-            To retest the first-use prompt in local dev, remove the{" "}
-            <code>feedbackDataSharingPreference</code> key from the{" "}
-            <code>instance_settings.general</code> JSON row for this instance, or set it back to{" "}
-            <code>"prompt"</code>. Unset and <code>"prompt"</code> both mean no default has been
-            chosen yet.
+            {t("instanceSettings.general.devResetHint")}
           </p>
         </div>
       </section>

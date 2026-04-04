@@ -45,14 +45,14 @@ import type { RoutineListItem, RoutineVariable } from "@paperclipai/shared";
 
 const concurrencyPolicies = ["coalesce_if_active", "always_enqueue", "skip_if_active"];
 const catchUpPolicies = ["skip_missed", "enqueue_missed_with_cap"];
-const concurrencyPolicyDescriptions: Record<string, string> = {
-  coalesce_if_active: "If a run is already active, keep just one follow-up run queued.",
-  always_enqueue: "Queue every trigger occurrence, even if the routine is already running.",
-  skip_if_active: "Drop new trigger occurrences while a run is still active.",
+const concurrencyPolicyDescriptionKeys: Record<string, string> = {
+  coalesce_if_active: "routines.policy.coalesceIfActive",
+  always_enqueue: "routines.policy.alwaysEnqueue",
+  skip_if_active: "routines.policy.skipIfActive",
 };
-const catchUpPolicyDescriptions: Record<string, string> = {
-  skip_missed: "Ignore windows that were missed while the scheduler or routine was paused.",
-  enqueue_missed_with_cap: "Catch up missed schedule windows in capped batches after recovery.",
+const catchUpPolicyDescriptionKeys: Record<string, string> = {
+  skip_missed: "routines.policy.skipMissed",
+  enqueue_missed_with_cap: "routines.policy.enqueueMissedWithCap",
 };
 
 function autoResizeTextarea(element: HTMLTextAreaElement | null) {
@@ -502,7 +502,7 @@ export function Routines() {
                           ))}
                         </SelectContent>
                       </Select>
-                      <p className="text-xs text-muted-foreground">{concurrencyPolicyDescriptions[draft.concurrencyPolicy]}</p>
+                      <p className="text-xs text-muted-foreground">{t(concurrencyPolicyDescriptionKeys[draft.concurrencyPolicy])}</p>
                     </div>
                     <div className="space-y-2">
                       <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">{t("routines.catchUp")}</p>
@@ -519,7 +519,7 @@ export function Routines() {
                           ))}
                         </SelectContent>
                       </Select>
-                      <p className="text-xs text-muted-foreground">{catchUpPolicyDescriptions[draft.catchUpPolicy]}</p>
+                      <p className="text-xs text-muted-foreground">{t(catchUpPolicyDescriptionKeys[draft.catchUpPolicy])}</p>
                     </div>
                   </div>
                 </CollapsibleContent>
@@ -557,7 +557,7 @@ export function Routines() {
       {error ? (
         <Card>
           <CardContent className="pt-6 text-sm text-destructive">
-            {error instanceof Error ? error.message : "Failed to load routines"}
+            {error instanceof Error ? error.message : t("routines.failedToLoad")}
           </CardContent>
         </Card>
       ) : null}
@@ -628,7 +628,7 @@ export function Routines() {
                               <span className="truncate">{agent.name}</span>
                             </div>
                           ) : (
-                            <span className="text-xs text-muted-foreground">Unknown</span>
+                            <span className="text-xs text-muted-foreground">{t("routines.unknown")}</span>
                           );
                         })() : (
                           <span className="text-xs text-muted-foreground">—</span>

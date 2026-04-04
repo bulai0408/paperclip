@@ -89,7 +89,8 @@
     "openSidebar": "打开侧边栏",
     "closeSidebar": "关闭侧边栏",
     "skipToMainContent": "跳转到主要内容",
-    "instanceSettings": "实例设置"
+    "instanceSettings": "实例设置",
+    "mobileNavigation": "移动端导航"
   },
   "mobileNav": {
     "home": "首页",
@@ -207,7 +208,8 @@
       "hire_agent": "招聘智能体",
       "ceo_strategy": "CEO 策略",
       "budget_override": "预算变更"
-    }
+    },
+    "selectCompanyFirst": "请先选择一个公司。"
   },
   "costs": {
     "title": "成本",
@@ -329,7 +331,27 @@
     "mine": "我的",
     "recent": "最近",
     "unread": "未读",
-    "selectCompanyMessage": "选择公司以查看收件箱"
+    "selectCompanyMessage": "选择公司以查看收件箱",
+    "runExitedWithError": "运行因错误退出。",
+    "noProject": "无项目",
+    "failedRun": "运行失败",
+    "retry": "重试",
+    "retrying": "重试中…",
+    "humanJoinRequest": "人工加入请求",
+    "agentJoinRequest": "智能体加入请求",
+    "agentJoinRequestNamed": "智能体加入请求：{{name}}",
+    "requestedFromIp": "于 {{time}} 从 IP {{ip}} 发起请求",
+    "failedToApprove": "批准失败",
+    "failedToReject": "拒绝失败",
+    "failedToApproveJoinRequest": "批准加入请求失败",
+    "failedToRejectJoinRequest": "拒绝加入请求失败",
+    "retrySkipped": "已跳过重试。",
+    "noSearchMatches": "没有符合搜索条件的收件箱项目。",
+    "inboxZero": "收件箱已清空。",
+    "noNewItems": "没有新的收件箱项目。",
+    "noRecentItems": "没有最近的收件箱项目。",
+    "noFilterMatches": "没有符合这些筛选条件的收件箱项目。",
+    "budgetUtilizationThisMonth": "本月预算使用率达到 {{percent}}%"
   },
   "orgChart": {
     "title": "组织架构",
@@ -641,6 +663,7 @@
     "saveChanges": "保存更改",
     "reset": "重置",
     "noUnsavedChanges": "无未保存的更改。",
+    "noCommandRecorded": "未记录命令",
     "none": "无",
     "project": "项目",
     "source": "来源",
@@ -664,6 +687,7 @@
     "linkedCount": "已关联 {{count}} 个",
     "loadingWorkspace": "正在加载工作区…",
     "failedToLoadWorkspace": "加载工作区失败",
+    "notFoundForProject": "未找到此项目的工作区。",
     "loadingWorkspaceOperations": "正在加载工作区操作…",
     "failedToLoadWorkspaceOperations": "加载工作区操作失败。",
     "noWorkspaceOperations": "尚未记录任何工作区操作。",
@@ -708,7 +732,20 @@
     "saveBeforeViewingRevision": "请先保存或取消本地更改，然后再查看旧版本。",
     "hideRemote": "隐藏远程",
     "reviewRemote": "查看远程",
-    "outOfDate": "已过期"
+    "outOfDate": "已过期",
+    "failedToDelete": "删除文档失败",
+    "failedToRestoreRevision": "恢复文档修订失败",
+    "failedToSave": "保存文档失败",
+    "changedWhileEditing": "此文档在你编辑期间已发生变化。你的本地草稿会被保留，自动保存已暂停。",
+    "keepMyDraft": "保留我的草稿",
+    "reloadRemote": "重新加载远程版本",
+    "overwriteRemote": "覆盖远程版本",
+    "remoteRevision": "远程修订 {{number}}",
+    "updated": "更新于 {{time}}",
+    "autosaving": "自动保存中...",
+    "viewingHistoricalRevision": "正在查看历史修订",
+    "couldNotSave": "无法保存",
+    "deleteConfirm": "删除此文档？此操作无法撤销。"
   },
   "billing": {
     "periodSpend": "周期支出",
@@ -762,7 +799,16 @@
     "chooseValue": "选择一个值",
     "missing": "缺少：",
     "chooseWorkspace": "运行前请选择现有工作区。",
-    "for": "对于"
+    "for": "对于",
+    "unknown": "未知",
+    "failedToLoad": "加载例程失败",
+    "policy": {
+      "coalesceIfActive": "如果已有运行在进行中，仅保留一个后续运行排队。",
+      "alwaysEnqueue": "即使例程正在运行，也将每次触发排入队列。",
+      "skipIfActive": "当运行仍在进行时，丢弃新的触发事件。",
+      "skipMissed": "忽略调度器或例程暂停期间错过的窗口。",
+      "enqueueMissedWithCap": "在恢复后以限定批次追赶错过的调度窗口。"
+    }
   },
   "onboarding": {
     "steps": {
@@ -829,7 +875,31 @@
     "createCompanyBeforeTest": "请先创建或选择公司再测试适配器环境。",
     "hint": "提示：",
     "claudeLogin": "claude login",
-    "creating": "创建中..."
+    "creating": "创建中...",
+    "respondWithHello": "回复 hello。",
+    "retrying": "重试中...",
+    "unsetAnthropicApiKey": "清除 ANTHROPIC_API_KEY",
+    "claudeFailedWhileApiKeySet": "Claude 在设置了 ANTHROPIC_API_KEY 时失败。您可以在此 CEO 适配器配置中清除它并重试探测。",
+    "ifAuthFailsSet": "如果认证失败，请设置",
+    "inEnvOrRun": "到环境变量中或运行",
+    "ifLoginRequired": "如果需要登录，请运行",
+    "andRetry": "然后重试。",
+    "adapters": {
+      "claudeCode": "Claude Code",
+      "codex": "Codex",
+      "geminiCli": "Gemini CLI",
+      "openCode": "OpenCode",
+      "pi": "Pi",
+      "cursor": "Cursor",
+      "hermesAgent": "Hermes Agent",
+      "openClawGateway": "OpenClaw Gateway"
+    },
+    "envResult": {
+      "passed": "通过",
+      "warnings": "警告",
+      "failed": "失败",
+      "hint": "提示："
+    }
   },
   "auth": {
     "signIn": "登录 Paperclip",
@@ -861,7 +931,13 @@
       "dontAllow": "不允许",
       "dontAllowDescription": "仅在本地保留投票的 AI 输出。",
       "noDefaultSaved": "尚未保存默认设置。下次点赞或点踩时将询问一次，然后在此保存答案。",
-      "termsOfService": "阅读我们的服务条款"
+      "termsOfService": "阅读我们的服务条款",
+      "loading": "正在加载通用设置...",
+      "loadFailed": "加载通用设置失败。",
+      "updateFailed": "更新通用设置失败。",
+      "toggleCensorUsername": "切换用户名日志脱敏",
+      "toggleKeyboardShortcuts": "切换键盘快捷键",
+      "devResetHint": "要在本地开发中重新测试首次使用提示，请从此实例的 instance_settings.general JSON 行中移除 feedbackDataSharingPreference 键，或将其设置回 \"prompt\"。未设置和 \"prompt\" 都表示尚未选择默认值。"
     },
     "heartbeats": {
       "title": "调度器心跳",
@@ -946,7 +1022,11 @@
     "deleteRepoConfirm": "删除此工作区的仓库？",
     "clearRepo": "清除仓库",
     "noUrl": "无 URL",
-    "worktreeCommandsDesc": "工作树管理命令"
+    "worktreeCommandsDesc": "工作树管理命令",
+    "goals": "目标",
+    "created": "创建时间",
+    "updated": "更新时间",
+    "targetDate": "目标日期"
   },
   "dateRange": {
     "monthToDate": "本月至今",
@@ -1496,7 +1576,21 @@
     "valuePlaceholder": "值",
     "wakeOnDemand": "按需唤醒",
     "warnings": "警告",
-    "workingDirectoryDeprecated": "工作目录（已弃用）"
+    "workingDirectoryDeprecated": "工作目录（已弃用）",
+    "model": "模型",
+    "modelDefault": "默认",
+    "selectModel": "选择模型",
+    "selectModelRequired": "选择模型（必填）",
+    "searchModels": "搜索模型...",
+    "searchModelsCreatable": "搜索模型...（输入以创建）",
+    "detecting": "检测中...",
+    "detectFromConfig": "从配置中检测",
+    "current": "当前",
+    "detected": "已检测",
+    "useManualModel": "使用手动输入的模型",
+    "noHermesModelDetected": "尚未检测到 Hermes 模型。请配置 Hermes 或手动输入提供商/模型。",
+    "noModelsFound": "未找到模型。",
+    "thinkingEffortLabel": "思考力度"
   },
   "agentIconPicker": {
     "searchPlaceholder": "搜索图标...",
@@ -1759,7 +1853,7 @@
   "approvalDetail": {
     "approvalsBreadcrumb": "审批",
     "loadingError": "加载审批失败",
-    "notFound": "未找到审批",
+    "notFound": "未找到审批。",
     "reviewLinkedIssues": "查看关联任务",
     "reviewLinkedIssue": "查看关联任务",
     "openHiredAgent": "打开已雇用的 Agent",
@@ -1792,7 +1886,10 @@
       "rejectFailed": "拒绝失败",
       "resubmitFailed": "重新提交失败",
       "revisionFailed": "请求修改失败"
-    }
+    },
+    "decisionNote": "决定备注：",
+    "linkedIssuesNote": "关联问题在请求代理跟进并关闭之前保持打开状态。",
+    "resolveBudgetStop": "在以下页面的预算控制中解决此预算停止"
   },
   "boardClaim": {
     "invalidUrl": "无效的面板认领 URL。",
@@ -2137,7 +2234,10 @@
     "upload": "上传",
     "uploadAttachment": "上传附件",
     "uploadFailed": "上传失败",
-    "uploading": "上传中..."
+    "uploading": "上传中...",
+    "copyAsMarkdown": "复制为 Markdown",
+    "showProperties": "显示属性",
+    "deleteAttachment": "删除附件"
   },
   "myIssues": {
     "title": "我的任务",
@@ -2671,7 +2771,8 @@
     "claudeOptions": "Claude 选项",
     "codexOptions": "Codex 选项",
     "opencodeOptions": "OpenCode 选项",
-    "agentOptions": "Agent 选项"
+    "agentOptions": "Agent 选项",
+    "failedToCreateTryAgain": "创建任务失败。请重试。"
   },
   "instanceExperimental": {
     "autoRestartDescription": "故障后自动重启智能体。",
@@ -2700,5 +2801,36 @@
     "metric": "指标",
     "limit": "限额",
     "observed": "已用"
+  },
+  "ui": {
+    "close": "关闭",
+    "more": "更多"
+  },
+  "sidebar": {
+    "projectPausedByBudget": "项目因预算暂停"
+  },
+  "issueWorkspace": {
+    "repo": "仓库："
+  },
+  "companySkills": {
+    "selectFileToInspect": "选择一个文件来检查。",
+    "browseSkillsSh": "浏览 skills.sh",
+    "findInstallCommands": "查找安装命令并粘贴到此处。",
+    "lookForRepos": "查找包含 `SKILL.md` 的仓库，然后将仓库 URL 粘贴到此处。",
+    "available": "{{count}} 个可用",
+    "creating": "创建中...",
+    "createSkill": "创建技能",
+    "stopEditing": "停止编辑",
+    "source": {
+      "skillsShManaged": "skills.sh 托管",
+      "gitHubManaged": "GitHub 托管",
+      "urlManaged": "URL 托管",
+      "folder": "文件夹",
+      "folderManaged": "文件夹托管",
+      "paperclipManaged": "Paperclip 托管",
+      "catalog": "目录",
+      "catalogManaged": "目录托管"
+    },
+    "noSkillsMatch": "没有匹配的技能。"
   }
 }

@@ -637,7 +637,7 @@ export function OnboardingWizard() {
             className="absolute top-4 left-4 z-10 rounded-sm p-1.5 text-muted-foreground/60 hover:text-foreground transition-colors"
           >
             <X className="h-5 w-5" />
-            <span className="sr-only">Close</span>
+            <span className="sr-only">{t("common.close")}</span>
           </button>
 
           {/* Left half — form */}
@@ -764,14 +764,14 @@ export function OnboardingWizard() {
                       {[
                         {
                           value: "claude_local" as const,
-                          label: "Claude Code",
+                          labelKey: "onboarding.adapters.claudeCode",
                           icon: Sparkles,
                           descKey: "adapters.claudeCodeDesc",
                           recommended: true
                         },
                         {
                           value: "codex_local" as const,
-                          label: "Codex",
+                          labelKey: "onboarding.adapters.codex",
                           icon: Code,
                           descKey: "adapters.codexDesc",
                           recommended: true
@@ -802,7 +802,7 @@ export function OnboardingWizard() {
                             </span>
                           )}
                           <opt.icon className="h-4 w-4" />
-                          <span className="font-medium">{opt.label}</span>
+                          <span className="font-medium">{t(opt.labelKey)}</span>
                           <span className="text-muted-foreground text-[10px]">
                             {t(opt.descKey)}
                           </span>
@@ -828,37 +828,37 @@ export function OnboardingWizard() {
                         {[
                           {
                             value: "gemini_local" as const,
-                            label: "Gemini CLI",
+                            labelKey: "onboarding.adapters.geminiCli",
                             icon: Gem,
                             descKey: "adapters.geminiCliDesc"
                           },
                           {
                             value: "opencode_local" as const,
-                            label: "OpenCode",
+                            labelKey: "onboarding.adapters.openCode",
                             icon: OpenCodeLogoIcon,
                             descKey: "adapters.openCodeDesc"
                           },
                           {
                             value: "pi_local" as const,
-                            label: "Pi",
+                            labelKey: "onboarding.adapters.pi",
                             icon: Terminal,
                             descKey: "adapters.piDesc"
                           },
                           {
                             value: "cursor" as const,
-                            label: "Cursor",
+                            labelKey: "onboarding.adapters.cursor",
                             icon: MousePointer2,
                             descKey: "adapters.cursorDesc"
                           },
                           {
                             value: "hermes_local" as const,
-                            label: "Hermes Agent",
+                            labelKey: "onboarding.adapters.hermesAgent",
                             icon: HermesIcon,
                             descKey: "adapters.hermesAgentDesc"
                           },
                           {
                             value: "openclaw_gateway" as const,
-                            label: "OpenClaw Gateway",
+                            labelKey: "onboarding.adapters.openClawGateway",
                             icon: Bot,
                             descKey: "adapters.openClawGatewayDesc",
                             comingSoon: true,
@@ -898,7 +898,7 @@ export function OnboardingWizard() {
                             }}
                           >
                             <opt.icon className="h-4 w-4" />
-                            <span className="font-medium">{opt.label}</span>
+                            <span className="font-medium">{t(opt.labelKey)}</span>
                             <span className="text-muted-foreground text-[10px]">
                               {opt.comingSoon
                                 ? t((opt as { disabledLabelKey?: string })
@@ -1061,10 +1061,7 @@ export function OnboardingWizard() {
                       {shouldSuggestUnsetAnthropicApiKey && (
                         <div className="rounded-md border border-amber-300/60 bg-amber-50/40 px-2.5 py-2 space-y-2">
                           <p className="text-[11px] text-amber-900/90 leading-relaxed">
-                            Claude failed while{" "}
-                            <span className="font-mono">ANTHROPIC_API_KEY</span>{" "}
-                            is set. You can clear it in this CEO adapter config
-                            and retry the probe.
+                            {t("onboarding.claudeFailedWhileApiKeySet")}
                           </p>
                           <Button
                             size="sm"
@@ -1076,8 +1073,8 @@ export function OnboardingWizard() {
                             onClick={() => void handleUnsetAnthropicApiKey()}
                           >
                             {unsetAnthropicLoading
-                              ? "Retrying..."
-                              : "Unset ANTHROPIC_API_KEY"}
+                              ? t("onboarding.retrying")
+                              : t("onboarding.unsetAnthropicApiKey")}
                           </Button>
                         </div>
                       )}
@@ -1098,14 +1095,14 @@ export function OnboardingWizard() {
                           </p>
                           <p className="text-muted-foreground">
                             {t("onboarding.prompt")}{" "}
-                            <span className="font-mono">Respond with hello.</span>
+                            <span className="font-mono">{t("onboarding.respondWithHello")}</span>
                           </p>
                           {adapterType === "cursor" ||
                           adapterType === "codex_local" ||
                           adapterType === "gemini_local" ||
                           adapterType === "opencode_local" ? (
                             <p className="text-muted-foreground">
-                              If auth fails, set{" "}
+                              {t("onboarding.ifAuthFailsSet")}{" "}
                               <span className="font-mono">
                                 {adapterType === "cursor"
                                   ? "CURSOR_API_KEY"
@@ -1113,7 +1110,7 @@ export function OnboardingWizard() {
                                     ? "GEMINI_API_KEY"
                                     : "OPENAI_API_KEY"}
                               </span>{" "}
-                              in env or run{" "}
+                              {t("onboarding.inEnvOrRun")}{" "}
                               <span className="font-mono">
                                 {adapterType === "cursor"
                                   ? "agent login"
@@ -1127,9 +1124,9 @@ export function OnboardingWizard() {
                             </p>
                           ) : (
                             <p className="text-muted-foreground">
-                              If login is required, run{" "}
+                              {t("onboarding.ifLoginRequired")}{" "}
                               <span className="font-mono">{t("onboarding.claudeLogin")}</span>{" "}
-                              and retry.
+                              {t("onboarding.andRetry")}
                             </p>
                           )}
                         </div>
@@ -1352,12 +1349,13 @@ function AdapterEnvironmentResult({
 }: {
   result: AdapterEnvironmentTestResult;
 }) {
+  const { t } = useTranslation();
   const statusLabel =
     result.status === "pass"
-      ? "Passed"
+      ? t("onboarding.envResult.passed")
       : result.status === "warn"
-      ? "Warnings"
-      : "Failed";
+      ? t("onboarding.envResult.warnings")
+      : t("onboarding.envResult.failed");
   const statusClass =
     result.status === "pass"
       ? "text-green-700 dark:text-green-300 border-green-300 dark:border-green-500/40 bg-green-50 dark:bg-green-500/10"
@@ -1391,7 +1389,7 @@ function AdapterEnvironmentResult({
             )}
             {check.hint && (
               <span className="block opacity-90 break-words">
-                Hint: {check.hint}
+                {t("onboarding.envResult.hint")} {check.hint}
               </span>
             )}
           </div>
