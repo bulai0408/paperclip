@@ -665,7 +665,7 @@ export const MarkdownEditor = forwardRef<MarkdownEditorRef, MarkdownEditorProps>
             !bordered && "inset-0 rounded-sm",
           )}
         >
-          Drop image to upload
+          {t("markdownEditor.dropImageToUpload")}
         </div>
       )}
       {uploadError && (

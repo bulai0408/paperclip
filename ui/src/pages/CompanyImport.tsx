@@ -256,7 +256,7 @@ function ImportPreviewPane({
           </pre>
         ) : (
           <div className="rounded-lg border border-border bg-accent/10 px-4 py-3 text-sm text-muted-foreground">
-            Binary asset preview is not available for this file type.
+            {t("companyImport.binaryPreviewUnavailable")}
           </div>
         )}
       </div>
@@ -405,6 +405,7 @@ function ConflictResolutionList({
   onToggleSkip: (slug: string, filePath: string | null) => void;
   onToggleConfirm: (slug: string) => void;
 }) {
+  const { t } = useTranslation();
   if (conflicts.length === 0) return null;
 
   return (
@@ -412,10 +413,10 @@ function ConflictResolutionList({
       <div className="rounded-md border border-border">
         <div className="flex items-center gap-2 border-b border-border px-4 py-2.5">
           <h3 className="text-sm font-medium">
-            Renames
+            {t("companyImport.renames")}
           </h3>
           <span className="text-xs text-muted-foreground">
-            {conflicts.length} item{conflicts.length === 1 ? "" : "s"}
+            {t("companyImport.itemCount", { count: conflicts.length })}
           </span>
         </div>
         <div className="divide-y divide-border">
@@ -443,7 +444,7 @@ function ConflictResolutionList({
                   )}
                   onClick={() => onToggleSkip(item.slug, item.filePath)}
                 >
-                  {isSkipped ? "skipped" : "skip"}
+                  {isSkipped ? t("companyImport.skipped") : t("companyImport.skip")}
                 </button>
 
                 <span className={cn(
@@ -496,10 +497,10 @@ function ConflictResolutionList({
                     {isConfirmed ? (
                       <>
                         <Check className="h-3 w-3" />
-                        confirmed
+                        {t("companyImport.confirmed")}
                       </>
                     ) : (
-                      "confirm rename"
+                      t("companyImport.confirmRename")
                     )}
                   </button>
                 )}
@@ -544,15 +545,16 @@ function AdapterPickerList({
   onToggleExpand: (slug: string) => void;
   onChangeConfig: (slug: string, patch: Partial<CreateConfigValues>) => void;
 }) {
+  const { t } = useTranslation();
   if (agents.length === 0) return null;
 
   return (
     <div className="mx-5 mt-3">
       <div className="rounded-md border border-border">
         <div className="flex items-center gap-2 border-b border-border px-4 py-2.5">
-          <h3 className="text-sm font-medium">Adapters</h3>
+          <h3 className="text-sm font-medium">{t("companyImport.adapters")}</h3>
           <span className="text-xs text-muted-foreground">
-            {agents.length} agent{agents.length === 1 ? "" : "s"}
+            {t("companyImport.agentCount", { count: agents.length })}
           </span>
         </div>
         <div className="divide-y divide-border">
@@ -596,7 +598,7 @@ function AdapterPickerList({
                     onClick={() => onToggleExpand(agent.slug)}
                   >
                     <ChevronRight className={cn("h-3 w-3 transition-transform", isExpanded && "rotate-90")} />
-                    configure adapter
+                    {t("companyImport.configureAdapter")}
                   </button>
                 </div>
                 {isExpanded && (
@@ -705,8 +707,7 @@ export function CompanyImport() {
     return ceo?.adapterType ?? "claude_local";
   }, [companyAgents]);
 
-  const localZipHelpText =
-    "Upload a .zip exported directly from Paperclip. Re-zipped archives created by Finder, Explorer, or other zip tools may not import correctly.";
+  const localZipHelpText = t("companyImport.localZipHelpText");
 
   useEffect(() => {
     setBreadcrumbs([
@@ -806,8 +807,8 @@ export function CompanyImport() {
     onError: (err) => {
       pushToast({
         tone: "error",
-        title: "Preview failed",
-        body: err instanceof Error ? err.message : "Failed to preview import.",
+        title: t("companyImport.previewFailed"),
+        body: err instanceof Error ? err.message : t("companyImport.failedToPreviewImport"),
       });
     },
   });
@@ -865,8 +866,8 @@ export function CompanyImport() {
       setSelectedCompanyId(importedCompany.id);
       pushToast({
         tone: "success",
-        title: "Import complete",
-        body: `${result.company.name}: ${result.agents.length} agent${result.agents.length === 1 ? "" : "s"} processed.`,
+        title: t("companyImport.importComplete"),
+        body: t("companyImport.importCompleteBody", { name: result.company.name, count: result.agents.length }),
       });
       // Force a fresh dashboard load so newly imported agents are immediately visible.
       window.location.assign(`/${importedCompany.issuePrefix}/dashboard`);
@@ -874,8 +875,8 @@ export function CompanyImport() {
     onError: (err) => {
       pushToast({
         tone: "error",
-        title: "Import failed",
-        body: err instanceof Error ? err.message : "Failed to apply import.",
+        title: t("companyImport.importFailed"),
+        body: err instanceof Error ? err.message : t("companyImport.failedToApplyImport"),
       });
     },
   });
@@ -890,8 +891,8 @@ export function CompanyImport() {
     } catch (err) {
       pushToast({
         tone: "error",
-        title: "Package read failed",
-        body: err instanceof Error ? err.message : "Failed to read folder.",
+        title: t("companyImport.packageReadFailed"),
+        body: err instanceof Error ? err.message : t("companyImport.failedToReadFolder"),
       });
     }
   }
@@ -1206,7 +1207,7 @@ export function CompanyImport() {
               type="text"
               value={newCompanyName}
               onChange={(e) => setNewCompanyName(e.target.value)}
-              placeholder="Imported Company"
+              placeholder={t("companyImport.importedCompanyPlaceholder")}
             />
           </Field>
         )}
