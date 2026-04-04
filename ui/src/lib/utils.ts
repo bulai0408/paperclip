@@ -2,6 +2,8 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { deriveAgentUrlKey, deriveProjectUrlKey, normalizeProjectUrlKey, hasNonAsciiContent } from "@paperclipai/shared";
 import type { BillingType, FinanceDirection, FinanceEventKind } from "@paperclipai/shared";
+import i18n from "../i18n";
+import { timeAgo } from "./timeAgo";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -12,7 +14,8 @@ export function formatCents(cents: number): string {
 }
 
 export function formatDate(date: Date | string): string {
-  return new Date(date).toLocaleDateString("en-US", {
+  const locale = i18n.resolvedLanguage ?? i18n.language ?? undefined;
+  return new Date(date).toLocaleDateString(locale, {
     month: "short",
     day: "numeric",
     year: "numeric",
@@ -20,7 +23,8 @@ export function formatDate(date: Date | string): string {
 }
 
 export function formatDateTime(date: Date | string): string {
-  return new Date(date).toLocaleString("en-US", {
+  const locale = i18n.resolvedLanguage ?? i18n.language ?? undefined;
+  return new Date(date).toLocaleString(locale, {
     month: "short",
     day: "numeric",
     year: "numeric",
@@ -30,16 +34,10 @@ export function formatDateTime(date: Date | string): string {
 }
 
 export function relativeTime(date: Date | string): string {
-  const now = Date.now();
   const then = new Date(date).getTime();
-  const diffSec = Math.round((now - then) / 1000);
-  if (diffSec < 60) return "just now";
-  const diffMin = Math.round(diffSec / 60);
-  if (diffMin < 60) return `${diffMin}m ago`;
-  const diffHr = Math.round(diffMin / 60);
-  if (diffHr < 24) return `${diffHr}h ago`;
-  const diffDay = Math.round(diffHr / 24);
-  if (diffDay < 30) return `${diffDay}d ago`;
+  if (Number.isNaN(then)) return "";
+  const diffDay = Math.round(Math.abs(Date.now() - then) / 1000 / 60 / 60 / 24);
+  if (diffDay < 30) return timeAgo(date);
   return formatDate(date);
 }
 

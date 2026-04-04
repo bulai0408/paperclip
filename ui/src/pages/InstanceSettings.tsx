@@ -75,7 +75,7 @@ export function InstanceSettings() {
       ]);
     },
     onError: (error) => {
-      setActionError(error instanceof Error ? error.message : "Failed to update heartbeat.");
+      setActionError(error instanceof Error ? error.message : t("instanceSettings.heartbeats.updateFailed"));
     },
   });
 
@@ -105,11 +105,15 @@ export function InstanceSettings() {
       const failures = results.filter((result): result is PromiseRejectedResult => result.status === "rejected");
       if (failures.length > 0) {
         const firstError = failures[0]?.reason;
-        const detail = firstError instanceof Error ? firstError.message : "Unknown error";
+        const detail = firstError instanceof Error ? firstError.message : t("common.unknownError");
         throw new Error(
           failures.length === 1
-            ? `Failed to disable 1 timer heartbeat: ${detail}`
-            : `Failed to disable ${failures.length} of ${enabled.length} timer heartbeats. First error: ${detail}`,
+            ? t("instanceSettings.heartbeats.disableSingleFailedDetail", { detail })
+            : t("instanceSettings.heartbeats.disableMultipleFailedDetail", {
+                failed: failures.length,
+                total: enabled.length,
+                detail,
+              }),
         );
       }
       return enabled;
@@ -128,7 +132,7 @@ export function InstanceSettings() {
       ]);
     },
     onError: (error) => {
-      setActionError(error instanceof Error ? error.message : "Failed to disable all heartbeats.");
+      setActionError(error instanceof Error ? error.message : t("instanceSettings.heartbeats.disableAllFailed"));
     },
   });
 
@@ -178,9 +182,9 @@ export function InstanceSettings() {
       </div>
 
       <div className="flex items-center gap-4 text-sm text-muted-foreground">
-        <span><span className="font-semibold text-foreground">{activeCount}</span> active</span>
-        <span><span className="font-semibold text-foreground">{disabledCount}</span> disabled</span>
-        <span><span className="font-semibold text-foreground">{grouped.length}</span> {grouped.length === 1 ? "company" : "companies"}</span>
+        <span>{t("instanceSettings.heartbeats.activeCount", { count: activeCount })}</span>
+        <span>{t("instanceSettings.heartbeats.disabledCount", { count: disabledCount })}</span>
+        <span>{t("instanceSettings.heartbeats.companyCount", { count: grouped.length })}</span>
         {anyEnabled && (
           <Button
             variant="destructive"
@@ -188,8 +192,7 @@ export function InstanceSettings() {
             className="ml-auto h-7 text-xs"
             disabled={disableAllMutation.isPending}
             onClick={() => {
-              const noun = enabledCount === 1 ? "agent" : "agents";
-              if (!window.confirm(`Disable timer heartbeats for all ${enabledCount} enabled ${noun}?`)) {
+              if (!window.confirm(t("instanceSettings.heartbeats.disableAllConfirm", { count: enabledCount }))) {
                 return;
               }
               disableAllMutation.mutate(agents);
@@ -231,7 +234,7 @@ export function InstanceSettings() {
                           variant={agent.schedulerActive ? "default" : "outline"}
                           className="shrink-0 text-[10px] px-1.5 py-0"
                         >
-                          {agent.schedulerActive ? "On" : "Off"}
+                          {agent.schedulerActive ? t("common.on") : t("common.off")}
                         </Badge>
                         <Link
                           to={buildAgentHref(agent)}
@@ -251,7 +254,7 @@ export function InstanceSettings() {
                         >
                           {agent.lastHeartbeatAt
                             ? relativeTime(agent.lastHeartbeatAt)
-                            : "never"}
+                            : t("common.never")}
                         </span>
                         <span className="ml-auto flex items-center gap-1.5 shrink-0">
                           <Link

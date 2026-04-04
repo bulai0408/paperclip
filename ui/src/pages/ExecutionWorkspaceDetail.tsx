@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { t as i18nT } from "i18next";
 import { useTranslation } from "react-i18next";
 import { Link, useParams } from "@/lib/router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -63,14 +64,14 @@ function parseWorkspaceRuntimeJson(value: string) {
     if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
       return {
         ok: false as const,
-        error: "Workspace runtime JSON must be a JSON object.",
+        error: i18nT("workspace.runtimeServicesMustBeJson"),
       };
     }
     return { ok: true as const, value: parsed as Record<string, unknown> };
   } catch (error) {
     return {
       ok: false as const,
-      error: error instanceof Error ? error.message : "Invalid JSON.",
+      error: error instanceof Error ? error.message : i18nT("workspace.invalidJson"),
     };
   }
 }
@@ -137,7 +138,7 @@ function validateForm(form: WorkspaceFormState) {
     try {
       new URL(repoUrl);
     } catch {
-      return "Repo URL must be a valid URL.";
+      return i18nT("workspace.repoUrlMustBeValid");
     }
   }
 
@@ -193,7 +194,7 @@ function MonoValue({ value, copy }: { value: string; copy?: boolean }) {
     <div className="inline-flex max-w-full items-start gap-2">
       <span className="break-all font-mono text-xs">{value}</span>
       {copy ? (
-        <CopyText text={value} className="shrink-0 text-muted-foreground hover:text-foreground" copiedLabel="Copied">
+        <CopyText text={value} className="shrink-0 text-muted-foreground hover:text-foreground">
           <Copy className="h-3.5 w-3.5" />
         </CopyText>
       ) : null}
@@ -647,7 +648,7 @@ export function ExecutionWorkspaceDetail() {
                       {workspace.repoUrl}
                       <ExternalLink className="h-3.5 w-3.5 shrink-0" />
                     </a>
-                    <CopyText text={workspace.repoUrl} className="shrink-0 text-muted-foreground hover:text-foreground" copiedLabel="Copied">
+                    <CopyText text={workspace.repoUrl} className="shrink-0 text-muted-foreground hover:text-foreground">
                       <Copy className="h-3.5 w-3.5" />
                     </CopyText>
                   </div>

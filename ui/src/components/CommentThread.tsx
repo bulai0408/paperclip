@@ -1,4 +1,5 @@
 import { memo, useEffect, useMemo, useRef, useState, type ChangeEvent } from "react";
+import { t as i18nT } from "i18next";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 import type {
@@ -141,9 +142,9 @@ function formatTimelineAssigneeLabel(
     return agentMap?.get(assignee.agentId)?.name ?? assignee.agentId.slice(0, 8);
   }
   if (assignee.userId) {
-    return formatAssigneeUserLabel(assignee.userId, currentUserId) ?? "Board";
+    return formatAssigneeUserLabel(assignee.userId, currentUserId) ?? (t ? t("common.board") : i18nT("common.board"));
   }
-  return t ? t("common.unassigned") : "Unassigned";
+  return t ? t("common.unassigned") : i18nT("common.unassigned");
 }
 
 function formatTimelineActorName(
@@ -157,9 +158,9 @@ function formatTimelineActorName(
     return agentMap?.get(actorId)?.name ?? actorId.slice(0, 8);
   }
   if (actorType === "system") {
-    return t ? t("common.system") : "System";
+    return t ? t("common.system") : i18nT("common.system");
   }
-  return formatAssigneeUserLabel(actorId, currentUserId) ?? "Board";
+  return formatAssigneeUserLabel(actorId, currentUserId) ?? (t ? t("common.board") : i18nT("common.board"));
 }
 
 function initialsForName(name: string) {

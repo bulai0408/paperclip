@@ -383,7 +383,9 @@ export function IssueProperties({ issue, onUpdate, inline }: IssuePropertiesProp
             }}
           >
             <User className="h-3 w-3 shrink-0 text-muted-foreground" />
-            {creatorUserLabel ? `Assign to ${creatorUserLabel}` : "Assign to requester"}
+            {creatorUserLabel
+              ? t("issueProperties.assignToUser", { name: creatorUserLabel })
+              : t("issueProperties.assignToRequester")}
           </button>
         )}
         {sortedAgents

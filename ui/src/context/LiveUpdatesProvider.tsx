@@ -2,6 +2,7 @@ import { useEffect, useRef, type ReactNode } from "react";
 import { t as i18nT } from "i18next";
 import { useQuery, useQueryClient, type QueryClient } from "@tanstack/react-query";
 import type { Agent, Issue, LiveEvent } from "@paperclipai/shared";
+import "../i18n";
 import type { RunForIssue } from "../api/activity";
 import type { ActiveRunForIssue, LiveRunForIssue } from "../api/heartbeats";
 import { authApi } from "../api/auth";
