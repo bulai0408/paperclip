@@ -36,60 +36,60 @@ type AdvancedAdapterType =
 
 const ADVANCED_ADAPTER_OPTIONS: Array<{
   value: AdvancedAdapterType;
-  label: string;
-  desc: string;
+  labelKey: string;
+  descKey: string;
   icon: ComponentType<{ className?: string }>;
   recommended?: boolean;
 }> = [
   {
     value: "claude_local",
-    label: "Claude Code",
+    labelKey: "adapters.claudeCode",
     icon: Sparkles,
-    desc: "Local Claude agent",
+    descKey: "adapters.claudeCodeDesc",
     recommended: true,
   },
   {
     value: "codex_local",
-    label: "Codex",
+    labelKey: "adapters.codex",
     icon: Code,
-    desc: "Local Codex agent",
+    descKey: "adapters.codexDesc",
     recommended: true,
   },
   {
     value: "gemini_local",
-    label: "Gemini CLI",
+    labelKey: "adapters.geminiCli",
     icon: Gem,
-    desc: "Local Gemini agent",
+    descKey: "adapters.geminiCliDesc",
   },
   {
     value: "opencode_local",
-    label: "OpenCode",
+    labelKey: "adapters.openCode",
     icon: OpenCodeLogoIcon,
-    desc: "Local multi-provider agent",
+    descKey: "adapters.openCodeDesc",
   },
   {
     value: "hermes_local",
-    label: "Hermes Agent",
+    labelKey: "adapters.hermesAgent",
     icon: HermesIcon,
-    desc: "Local multi-provider agent",
+    descKey: "adapters.hermesAgentDesc",
   },
   {
     value: "pi_local",
-    label: "Pi",
+    labelKey: "adapters.pi",
     icon: Terminal,
-    desc: "Local Pi agent",
+    descKey: "adapters.piDesc",
   },
   {
     value: "cursor",
-    label: "Cursor",
+    labelKey: "adapters.cursor",
     icon: MousePointer2,
-    desc: "Local Cursor agent",
+    descKey: "adapters.cursorDesc",
   },
   {
     value: "openclaw_gateway",
-    label: "OpenClaw Gateway",
+    labelKey: "adapters.openClawGateway",
     icon: Bot,
-    desc: "Invoke OpenClaw via gateway protocol",
+    descKey: "adapters.openClawGatewayDesc",
   },
 ];
 
@@ -112,8 +112,8 @@ export function NewAgentDialog() {
     closeNewAgent();
     openNewIssue({
       assigneeAgentId: ceoAgent?.id,
-      title: "Create a new agent",
-      description: "(type in what kind of agent you want here)",
+      title: t("dialog.newAgent.createNewAgent"),
+      description: t("dialog.newAgent.typeInDescription"),
     });
   }
 
@@ -193,7 +193,7 @@ export function NewAgentDialog() {
                   onClick={() => setShowAdvancedCards(false)}
                 >
                   <ArrowLeft className="h-3.5 w-3.5" />
-                  Back
+                  {t("common.back")}
                 </button>
                 <p className="text-sm text-muted-foreground">
                   {t("dialog.newAgent.chooseAdapter")}
@@ -215,9 +215,9 @@ export function NewAgentDialog() {
                       </span>
                     )}
                     <opt.icon className="h-4 w-4" />
-                    <span className="font-medium">{opt.label}</span>
+                    <span className="font-medium">{t(opt.labelKey)}</span>
                     <span className="text-muted-foreground text-[10px]">
-                      {opt.desc}
+                      {t(opt.descKey)}
                     </span>
                   </button>
                 ))}

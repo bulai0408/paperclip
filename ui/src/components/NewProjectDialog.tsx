@@ -134,7 +134,7 @@ export function NewProjectDialog() {
   const deriveWorkspaceNameFromPath = (value: string) => {
     const normalized = value.trim().replace(/[\\/]+$/, "");
     const segments = normalized.split(/[\\/]/).filter(Boolean);
-    return segments[segments.length - 1] ?? "Local folder";
+    return segments[segments.length - 1] ?? t("dialog.newProject.localFolder");
   };
 
   const deriveWorkspaceNameFromRepo = (value: string) => {
@@ -142,9 +142,9 @@ export function NewProjectDialog() {
       const parsed = new URL(value);
       const segments = parsed.pathname.split("/").filter(Boolean);
       const repo = segments[segments.length - 1]?.replace(/\.git$/i, "") ?? "";
-      return repo || "GitHub repo";
+      return repo || t("dialog.newProject.repoUrl");
     } catch {
-      return "GitHub repo";
+      return t("dialog.newProject.repoUrl");
     }
   };
 
@@ -288,13 +288,13 @@ export function NewProjectDialog() {
           <div>
             <div className="mb-1 flex items-center gap-1.5">
               <label className="block text-xs text-muted-foreground">{t("dialog.newProject.repoUrl")}</label>
-              <span className="text-xs text-muted-foreground/50">optional</span>
+              <span className="text-xs text-muted-foreground/50">{t("common.optional")}</span>
               <Tooltip delayDuration={300}>
                 <TooltipTrigger asChild>
                   <HelpCircle className="h-3 w-3 text-muted-foreground/50 cursor-help" />
                 </TooltipTrigger>
                 <TooltipContent side="top" className="max-w-[240px] text-xs">
-                  Link a GitHub repository so agents can clone, read, and push code for this project.
+                  {t("dialog.newProject.repoTooltip")}
                 </TooltipContent>
               </Tooltip>
             </div>
@@ -309,13 +309,13 @@ export function NewProjectDialog() {
           <div>
             <div className="mb-1 flex items-center gap-1.5">
               <label className="block text-xs text-muted-foreground">{t("dialog.newProject.localFolder")}</label>
-              <span className="text-xs text-muted-foreground/50">optional</span>
+              <span className="text-xs text-muted-foreground/50">{t("common.optional")}</span>
               <Tooltip delayDuration={300}>
                 <TooltipTrigger asChild>
                   <HelpCircle className="h-3 w-3 text-muted-foreground/50 cursor-help" />
                 </TooltipTrigger>
                 <TooltipContent side="top" className="max-w-[240px] text-xs">
-                  Set an absolute path on this machine where local agents will read and write files for this project.
+                  {t("dialog.newProject.localFolderTooltip")}
                 </TooltipContent>
               </Tooltip>
             </div>
@@ -425,7 +425,7 @@ export function NewProjectDialog() {
               className="bg-transparent outline-none text-xs w-24"
               value={targetDate}
               onChange={(e) => setTargetDate(e.target.value)}
-              placeholder="Target date"
+              placeholder={t("dialog.newProject.targetDate")}
             />
           </div>
         </div>
